@@ -1,0 +1,66 @@
+{
+  "login": {
+      "name": "Nombre compañía",
+      "title": "Inicie sesión para continuar",
+      "user": "Nombre de usuario",
+      "password": "Contraseña",
+      "forgot": "Olvidaste tu contraseña?"
+  },
+  "sidebar": {
+      "title": "OPCIONES",
+      "menu-auth": "Autenticación",
+      "menu-auth-user": "Usuarios",
+      "menu-budget" : "Presupuestos",
+      "menu-budget-duplex" : "Registro de duplex",
+      "menu-budget-tracking" : "Seguimiento",
+      "menu-budget-report" : "Reportes",
+      "menu-land" : "Terrenos",
+      "menu-land-supplier" : "Proveedores",
+      "menu-land-land" : "Compra de terrenos",
+      "menu-land-report" : "Reportes",
+      "menu-bill" : "Gastos",
+      "menu-bill-type" : "Tipo de gastos",
+      "menu-bill-register" : "Registro de gastos",
+      "menu-bill-report" : "Reportes"
+  },
+  "button": {
+    "login": "Iniciar sesión",
+    "new": "Adicionar",
+    "save" : "Guardar",
+    "cancel" : "Cancelar"
+  },
+  "navbar": {
+      "user-option": "OPCIONES",
+      "user-option-change-password": "Cambiar clave",
+      "user-option-logout": "Cerrar sesión",
+      "languaje-english": "inglés",
+      "languaje-spanish": "español"
+  },
+  "users-list": {
+    "title": "Lista de usuarios",
+    "table-column-username" : "Usuario",
+    "table-column-fullname" : "Nombre completo",
+    "table-column-email" : "Correo electrónico"
+  },
+  "users-form": {
+    "title": "Formulario de usuarios",
+    "username" : "Usuario",
+    "fullname" : "Nombre completo",
+    "email" : "Correo electrónico"
+  },
+  "duplex-list": {
+    "title": "Lista de duplex",    
+    "table-column-code" : "Código",
+    "table-column-description" : "Descripción",
+    "table-column-address" : "Dirección"
+  },
+  "duplex-form": {
+    "title": "Formulario de duplex",
+    "code" : "Código",
+    "description" : "Descripción",
+    "address" : "Dirección",    
+    "button-unity" : "Adicionar Unidad",
+    "table-column-code" : "Código",
+    "table-column-description" : "Descripción"
+  }
+}

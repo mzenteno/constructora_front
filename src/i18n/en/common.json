@@ -1,0 +1,66 @@
+{
+  "login": {
+      "name": "Company name",
+      "title": "Sign in to continue",
+      "user": "User name",
+      "password": "Password",
+      "forgot": "Forgot password?"
+  },
+  "sidebar": {
+      "title": "OPTIONS",
+      "menu-auth": "Authentication",
+      "menu-auth-user": "Users",
+      "menu-budget" : "Budget",
+      "menu-budget-duplex" : "Duplex registration",
+      "menu-budget-tracking" : "budget tracking",
+      "menu-budget-report" : "Reports",
+      "menu-land" : "Lands",
+      "menu-land-supplier" : "Suppliers",
+      "menu-land-land" : "Purchase of lands",
+      "menu-land-report" : "Reports",
+      "menu-bill" : "Invoices",
+      "menu-bill-type" : "Invoice type",
+      "menu-bill-register" : "Invoice record",
+      "menu-bill-report" : "Reports"
+  },
+  "button": {
+    "login": "Sign in",
+    "new": "Add new",
+    "save" : "Save",
+    "cancel" : "Cancel"
+  },
+  "navbar": {
+      "user-option": "OPTIONS",
+      "user-option-change-password": "Change password",
+      "user-option-logout": "Log out",
+      "languaje-english": "english",
+      "languaje-spanish": "spanish"
+  },
+  "users-list": {
+    "title": "Users list",
+    "table-column-username" : "User name",
+    "table-column-fullname" : "Full name",
+    "table-column-email" : "Email"
+  },
+  "users-form": {
+    "title": "User form",
+    "username" : "User name",
+    "fullname" : "Full name",
+    "email" : "Email"
+  },
+  "duplex-list": {
+    "title": "Duplex list",
+    "table-column-code" : "Code",
+    "table-column-description" : "Description",
+    "table-column-address" : "Address"
+  },
+  "duplex-form": {
+    "title": "Duplex form",
+    "code" : "Code",
+    "description" : "Description",
+    "address" : "Address",
+    "button-unity" : "Add New Unity",
+    "table-column-code" : "Code",
+    "table-column-description" : "Description"
+  }
+}
