@@ -16,7 +16,7 @@ export const DuplexForm = () => {
 
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { create, getById } = UseDuplex();
+  const { create, update, getById } = UseDuplex();
   const {
     register,
     handleSubmit,
@@ -24,26 +24,11 @@ export const DuplexForm = () => {
     reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const payload = {
-      ...data,
-      duplexUnities: rows,
-    };
-
-    const response = await create(payload);
-    if (response) {
-      navigate("/duplex");
-    }
-  };
-
-  const handleNewUnity = () => {
-    setRows((prev) => [...prev, itemForm]);
-    setItemForm({ code: "", description: "" });
-    setModalOpen(false);
-  };
-
   useEffect(() => {
     if (isEdit) {
+      const btn = document.getElementById("btnAddDuplexUnity");
+      btn.disabled = true;
+
       getById(id).then((data) => {
         reset({
           txtCode: data.code,
@@ -54,6 +39,26 @@ export const DuplexForm = () => {
       });
     }
   }, [id]);
+
+  const onSubmit = async (data) => {
+    const payload = {
+      ...data,
+      duplexUnities: rows,
+    };
+
+    const response = isEdit ? update(id, payload) : create(payload);
+    if (response?.sucess !== false) {
+      if (response) {
+        navigate("/duplex");
+      }
+    }
+  };
+
+  const handleNewUnity = () => {
+    setRows((prev) => [...prev, itemForm]);
+    setItemForm({ code: "", description: "" });
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -78,7 +83,7 @@ export const DuplexForm = () => {
                 </div>
 
                 <div className="form-group">
-                  <button type="button" className="btn btn-danger btn-fw mr-2" onClick={() => setModalOpen(true)}>
+                  <button id="btnAddDuplexUnity" type="button" className="btn btn-danger btn-fw mr-1" onClick={() => setModalOpen(true)}>
                     {t("duplex-form.button-unity")}
                   </button>
 
@@ -100,7 +105,7 @@ export const DuplexForm = () => {
                   </table>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-fw mr-2 mb-2">
+                <button type="submit" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}
                 </button>
                 <button

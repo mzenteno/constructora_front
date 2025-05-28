@@ -1,6 +1,6 @@
 import { useI18n } from "@store/I18nContext";
 
-export const UnityModal = ({ show, onClose, onSave, form, setForm }) => {
+export const BudgetAmountDuplexModal = ({ show, onClose, onSave, form, setForm }) => {
   const { t } = useI18n();
 
   if (!show) return null;
@@ -16,12 +16,12 @@ export const UnityModal = ({ show, onClose, onSave, form, setForm }) => {
               <div className="card">
                 <div className="card-body">
                   <div className="form-group mb-3 mt-3">
-                    <label>{t("duplex-form.table-column-code")}</label>
-                    <input type="text" className="form-control" value={form.code} onChange={(e) => setForm({ ...form, code: e.target.value })} />
+                    <label>{t("duplex-tracking-form.table-column-budgete")}</label>
+                    <input type="text" className="form-control" value={form.amountBudgete} onChange={(e) => setForm({ ...form, budgete: e.target.value })} />
                   </div>
                   <div className="form-group mb-3">
-                    <label>{t("duplex-form.table-column-description")}</label>
-                    <input type="text" className="form-control" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                    <label>{t("duplex-tracking-form.table-column-spent")}</label>
+                    <input type="text" className="form-control" value={form.spent} onChange={(e) => setForm({ ...form, spent: e.target.value })} />
                   </div>
                 </div>
               </div>

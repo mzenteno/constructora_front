@@ -1,7 +1,7 @@
 import { useState} from 'react';
-import { DuplexService } from '@services/DuplexService';
+import { SupplierService } from '@services/SupplierService';
 
-export const UseDuplex = () => {
+export const UseSupplier = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,12 +11,13 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.create({
-        code: data.txtCode,
-        description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+      const response = await SupplierService.create({ 
+        fullName: data.txtFullName,
+        phone: data.txtPhone,
+        email: data.txtEmail,
+        documentNumber: data.txtDocumentNumber,
+        address: data.txtAddress
+       });
       return response;
 
     } catch (err) {
@@ -33,12 +34,13 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.update(id, {
-        code: data.txtCode,
-        description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+      const response = await SupplierService.update(id, { 
+        fullName: data.txtFullName,
+        phone: data.txtPhone,
+        email: data.txtEmail,
+        documentNumber: data.txtDocumentNumber,
+        address: data.txtAddress
+       });
       return response;
 
     } catch (err) {
@@ -50,11 +52,11 @@ export const UseDuplex = () => {
     }
   };
 
-  const getAll = async () => {
+  const getAll = async (filter = {}) => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getAll();
+      const data = await SupplierService.getAll(filter);
       setData(data);
 
     } catch (err) {
@@ -69,7 +71,7 @@ export const UseDuplex = () => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getById(id);
+      const data = await SupplierService.getById(id);
       setData(data);
 
       return data;

@@ -23,24 +23,22 @@ export const SideBar = () => {
         <SideBarItem title={t("sidebar.menu-budget")} hasSubItem href="ui-presupuesto" IconComponent={HouseMenuIcon}>
           <SideBarItemMenu id="ui-presupuesto">
             <SideBarItemSubMenu title={t("sidebar.menu-budget-duplex")} path="/duplex" />
-            <SideBarItemSubMenu title={t("sidebar.menu-budget-tracking")} path="/tracking-budget" />
-            <SideBarItemSubMenu title={t("sidebar.menu-budget-report")} path="/report-budget" />
+            <SideBarItemSubMenu title={t("sidebar.menu-budget-tracking")} path="/duplex-tracking" />
+            <SideBarItemSubMenu title={t("sidebar.menu-budget-report")} path="/duplex-report" />
           </SideBarItemMenu>
         </SideBarItem>
 
         <SideBarItem title={t("sidebar.menu-land")} hasSubItem href="ui-terrenos" IconComponent={MapMenuIcon}>
           <SideBarItemMenu id="ui-terrenos">
-            <SideBarItemSubMenu title={t("sidebar.menu-land-supplier")} path="/user" />
-            <SideBarItemSubMenu title={t("sidebar.menu-land-land")} path="/user" />
-            <SideBarItemSubMenu title={t("sidebar.menu-land-report")} path="/user" />
+            <SideBarItemSubMenu title={t("sidebar.menu-land-supplier")} path="/supplier" />
+            <SideBarItemSubMenu title={t("sidebar.menu-land-land")} path="/land" />
           </SideBarItemMenu>
         </SideBarItem>
 
-        <SideBarItem title={t("sidebar.menu-bill")} hasSubItem href="ui-egresos" IconComponent={MoneyMenuIcon}>
+        <SideBarItem title={t("sidebar.menu-expense")} hasSubItem href="ui-egresos" IconComponent={MoneyMenuIcon}>
           <SideBarItemMenu id="ui-egresos">
-            <SideBarItemSubMenu title={t("sidebar.menu-bill-type")} path="/user" />
-            <SideBarItemSubMenu title={t("sidebar.menu-bill-register")} path="/user" />
-            <SideBarItemSubMenu title={t("sidebar.menu-bill-report")} path="/user" />
+            <SideBarItemSubMenu title={t("sidebar.menu-expense-type")} path="/expense-type" />
+            <SideBarItemSubMenu title={t("sidebar.menu-expense-register")} path="/expense" />
           </SideBarItemMenu>
         </SideBarItem>
       </ul>

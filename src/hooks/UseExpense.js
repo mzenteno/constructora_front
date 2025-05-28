@@ -1,7 +1,7 @@
 import { useState} from 'react';
-import { DuplexService } from '@services/DuplexService';
+import { ExpenseService } from '@services/ExpenseService';
 
-export const UseDuplex = () => {
+export const UseExpense = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,12 +11,12 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.create({
-        code: data.txtCode,
+      const response = await ExpenseService.create({ 
         description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+        amount: data.txtAmount,
+        expenseTypeId: parseInt(data.cboExpenseType, 10),
+        createAt: `${data.dpkCreateAt}T00:00:00Z`
+       });
       return response;
 
     } catch (err) {
@@ -33,12 +33,12 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.update(id, {
-        code: data.txtCode,
+      const response = await ExpenseService.update(id, { 
         description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+        amount: data.txtAmount,
+        expenseTypeId: parseInt(data.cboExpenseType, 10),
+        createAt: `${data.dpkCreateAt}T00:00:00Z`
+       });
       return response;
 
     } catch (err) {
@@ -50,11 +50,11 @@ export const UseDuplex = () => {
     }
   };
 
-  const getAll = async () => {
+  const getAll = async (filter = {}) => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getAll();
+      const data = await ExpenseService.getAll(filter);
       setData(data);
 
     } catch (err) {
@@ -69,7 +69,7 @@ export const UseDuplex = () => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getById(id);
+      const data = await ExpenseService.getById(id);
       setData(data);
 
       return data;

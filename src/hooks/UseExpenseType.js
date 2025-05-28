@@ -1,7 +1,7 @@
 import { useState} from 'react';
-import { DuplexService } from '@services/DuplexService';
+import { ExpenseTypeService } from '@services/ExpenseTypeService';
 
-export const UseDuplex = () => {
+export const UseExpenseType = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,12 +11,7 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.create({
-        code: data.txtCode,
-        description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+      const response = await ExpenseTypeService.create({ description: data.txtDescription });
       return response;
 
     } catch (err) {
@@ -33,12 +28,7 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.update(id, {
-        code: data.txtCode,
-        description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+      const response = await ExpenseTypeService.update(id, { description: data.txtDescription });
       return response;
 
     } catch (err) {
@@ -50,11 +40,11 @@ export const UseDuplex = () => {
     }
   };
 
-  const getAll = async () => {
+  const getAll = async (filter = {}) => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getAll();
+      const data = await ExpenseTypeService.getAll(filter);
       setData(data);
 
     } catch (err) {
@@ -69,7 +59,7 @@ export const UseDuplex = () => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getById(id);
+      const data = await ExpenseTypeService.getById(id);
       setData(data);
 
       return data;

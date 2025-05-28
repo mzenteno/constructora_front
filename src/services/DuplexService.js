@@ -10,7 +10,23 @@ export const DuplexService = {
         const result = response.data;
   
         if (!result.success) {
-          throw new Error(result.message || 'User creation failed.');
+          throw new Error(result.message || 'Register creation failed.');
+        }
+  
+        return result.data;
+      } catch (error) {
+        console.error("Error:", error);
+        throw error;
+      }
+    },
+
+    async update(id, data) {
+      try {
+        const response = await AxiosInstance.put(`${baseURL}/${id}`, data);
+        const result = response.data;
+  
+        if (!result.success) {
+          throw new Error(result.message || 'Register update failed.');
         }
   
         return result.data;

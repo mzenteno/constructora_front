@@ -16,4 +16,19 @@ AxiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Interceptor para manejar errores globales
+AxiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.warn("Token expirado o inválido. Cerrando sesión...");
+      localStorage.removeItem("token_jwt");
+      window.location.href = "/login"; // o navega usando useNavigate si estás en un componente
+      // También puedes mostrar un toast aquí
+    }
+
+    return Promise.reject(error); // Sigue propagando el error
+  }
+);
+
 export default AxiosInstance;

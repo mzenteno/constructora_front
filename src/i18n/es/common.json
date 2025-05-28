@@ -1,6 +1,6 @@
 {
   "login": {
-      "name": "Nombre compañía",
+      "name": "Duplex Lehigh Acres",
       "title": "Inicie sesión para continuar",
       "user": "Nombre de usuario",
       "password": "Contraseña",
@@ -11,23 +11,27 @@
       "menu-auth": "Autenticación",
       "menu-auth-user": "Usuarios",
       "menu-budget" : "Presupuestos",
-      "menu-budget-duplex" : "Registro de duplex",
-      "menu-budget-tracking" : "Seguimiento",
+      "menu-budget-duplex" : "Registro de dúplex",
+      "menu-budget-tracking" : "Seguimiento de dúplex",
       "menu-budget-report" : "Reportes",
       "menu-land" : "Terrenos",
       "menu-land-supplier" : "Proveedores",
       "menu-land-land" : "Compra de terrenos",
       "menu-land-report" : "Reportes",
-      "menu-bill" : "Gastos",
-      "menu-bill-type" : "Tipo de gastos",
-      "menu-bill-register" : "Registro de gastos",
-      "menu-bill-report" : "Reportes"
+      "menu-expense" : "Gastos",
+      "menu-expense-type" : "Tipo de gasto",
+      "menu-expense-register" : "Registro de gasto",
+      "menu-expense-report" : "Reportes"
+  },
+  "util": {
+    "message-not-data": "No existen datos"
   },
   "button": {
     "login": "Iniciar sesión",
     "new": "Adicionar",
     "save" : "Guardar",
-    "cancel" : "Cancelar"
+    "cancel" : "Cancelar",
+    "download" : "Descargar"
   },
   "navbar": {
       "user-option": "OPCIONES",
@@ -49,18 +53,103 @@
     "email" : "Correo electrónico"
   },
   "duplex-list": {
-    "title": "Lista de duplex",    
+    "title": "Lista de dúplex",    
     "table-column-code" : "Código",
     "table-column-description" : "Descripción",
     "table-column-address" : "Dirección"
   },
   "duplex-form": {
-    "title": "Formulario de duplex",
+    "title": "Formulario de dúplex",
     "code" : "Código",
     "description" : "Descripción",
     "address" : "Dirección",    
     "button-unity" : "Adicionar Unidad",
     "table-column-code" : "Código",
     "table-column-description" : "Descripción"
+  },
+  "duplex-tracking": {
+    "title": "Seguimiento dúplex",
+    "table-column-code" : "Código",
+    "table-column-description" : "Descripción",
+    "table-column-address" : "Dirección"
+  },
+    "duplex-tracking-form": {
+    "title": "Seguimiento dúplex",
+    "table-column-payitem" : "Artículo de pago",
+    "table-column-description" : "Descripción",
+    "table-column-unit" : "Unidad",
+    "table-column-budgete" : "Presupuesto",
+    "table-column-spent" : "Gastado",
+    "table-column-real" : "Real"
+  },
+  "expense-type-list": {
+    "title": "Lista de tipos de gasto",
+    "table-column-description" : "Descripción",
+    "table-search-description" : "Buscar por descripción..."
+  },
+  "expense-type-form": {
+    "title": "Formulario de tipo de gasto",
+    "description" : "Descripción"
+  },
+  "expense-list": {
+    "title": "Lista de gastos",
+    "table-column-createAt" : "Fecha de creación",
+    "table-search-createAt" : "Buscar por fecha...",
+    "table-column-description" : "Descripción",
+    "table-search-description" : "Buscar por descripción...",
+    "table-column-amount" : "Cantidad",
+    "table-column-expense-type" : "Tipo de gasto",
+    "table-search-expense-type" : "Buscar por tipo de gasto..."
+  },
+  "expense-form": {
+    "title": "Formulario de gastos",
+    "createAt" : "Fecha de creación",
+    "description" : "Descripción",
+    "amount" : "Cantidad",
+    "expense-type" : "Tipo de gasto"
+  },
+  "supplier-list": {
+    "title": "Lista de proveedores",
+    "table-column-full-name" : "Nombre completo",
+    "table-column-phone" : "Teléfono",
+    "table-column-email" : "Correo electrónico",
+    "table-column-document-number" : "Número de documento",
+    "table-column-address" : "Dirección",
+    "table-search-full-name" : "Buscar por nombre completo...",
+    "table-search-phone" : "Buscar por teléfono...",
+    "table-search-email" : "Buscar por correo electrónico...",
+    "table-search-document-number" : "Buscar por número de documento...",
+    "table-search-address" : "Buscar por Dirección..."
+  },
+  "supplier-form": {
+    "title": "Formulario de proveedores",
+    "full-name" : "Nombre completo",
+    "phone" : "Teléfono",
+    "email" : "Correo electrónico",
+    "document-number" : "Número de documento",
+    "address" : "Dirección"
+  },
+  "land-list": {
+    "title": "Lista de terrenos",
+    "table-column-code" : "Código",
+    "table-column-ubication" : "Ubicación",
+    "table-column-price" : "Precio",
+    "table-column-sold" : "Estado",
+    "table-column-supplier" : "Proveedor",
+    "table-search-code" : "Buccar por código...",
+    "table-search-ubication" : "Buscar por ubicación...",
+    "table-search-price" : "Buscar por precio...",
+    "table-search-sold" : "Buscar por estado...",
+    "table-search-supplier" : "Buscar por proveeor..."
+    
+  },
+  "land-form": {
+    "title": "Formulario de terreno",
+    "code" : "Código",
+    "ubication" : "Ubicación",    
+    "price" : "Precio",
+    "description" : "Descripción",
+    "sold" : "Estado",
+    "supplier" : "Proveedor"
   }
 }

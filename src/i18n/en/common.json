@@ -1,6 +1,6 @@
 {
   "login": {
-      "name": "Company name",
+      "name": "Duplex Lehigh Acres",
       "title": "Sign in to continue",
       "user": "User name",
       "password": "Password",
@@ -12,22 +12,26 @@
       "menu-auth-user": "Users",
       "menu-budget" : "Budget",
       "menu-budget-duplex" : "Duplex registration",
-      "menu-budget-tracking" : "budget tracking",
+      "menu-budget-tracking" : "Duplex tracking",
       "menu-budget-report" : "Reports",
       "menu-land" : "Lands",
       "menu-land-supplier" : "Suppliers",
       "menu-land-land" : "Purchase of lands",
       "menu-land-report" : "Reports",
-      "menu-bill" : "Invoices",
-      "menu-bill-type" : "Invoice type",
-      "menu-bill-register" : "Invoice record",
-      "menu-bill-report" : "Reports"
+      "menu-expense" : "Expenses",
+      "menu-expense-type" : "Expense type",
+      "menu-expense-register" : "Expense record",
+      "menu-expense-report" : "Reports"
+  },
+  "util": {
+    "message-not-data": "there is not data"
   },
   "button": {
     "login": "Sign in",
     "new": "Add new",
     "save" : "Save",
-    "cancel" : "Cancel"
+    "cancel" : "Cancel",
+    "download" : "Download"
   },
   "navbar": {
       "user-option": "OPTIONS",
@@ -62,5 +66,90 @@
     "button-unity" : "Add New Unity",
     "table-column-code" : "Code",
     "table-column-description" : "Description"
+  },
+  "duplex-tracking": {
+    "title": "Duplex tracking",
+    "table-column-code" : "Code",
+    "table-column-description" : "Description",
+    "table-column-address" : "Address"
+  },
+  "duplex-tracking-form": {
+    "title": "Duplex tracking form",
+    "table-column-payitem" : "Pay item",
+    "table-column-description" : "Description",
+    "table-column-unit" : "Unit",
+    "table-column-budgete" : "Budgete",
+    "table-column-spent" : "Spent",
+    "table-column-real" : "Real"
+  },
+  "expense-type-list": {
+    "title": "Expense type list",
+    "table-column-description" : "Description",
+    "table-search-description" : "Search by description..."
+  },
+  "expense-type-form": {
+    "title": "Expense type form",
+    "description" : "Description"
+  },
+  "expense-list": {
+    "title": "Expense list",
+    "table-column-createAt" : "Creation date",
+    "table-column-description" : "Description",    
+    "table-column-amount" : "Amount",    
+    "table-column-expense-type" : "Expense type",
+    "table-search-createAt" : "Search by date...",
+    "table-search-description" : "Search by description...",
+    "table-search-expense-type" : "Search by expense type..."
+  },
+  "expense-form": {
+    "title": "Expense form",
+    "description" : "Description",
+    "createAt" : "Creation date",    
+    "amount" : "Amount",
+    "expense-type" : "Expense type"
+  },
+  "supplier-list": {
+    "title": "Supplier list",
+    "table-column-full-name" : "Full name",
+    "table-column-phone" : "Phone",
+    "table-column-email" : "Email",
+    "table-column-document-number" : "Document number",
+    "table-column-address" : "Address",
+    "table-search-full-name" : "Search by full name...",
+    "table-search-phone" : "Search by phone...",
+    "table-search-email" : "Search by email...",
+    "table-search-document-number" : "Search by document number...",
+    "table-search-address" : "Search by address..."
+  },
+  "supplier-form": {
+    "title": "Supplier form",
+    "full-name" : "Full name",
+    "phone" : "Phone",
+    "email" : "Email",
+    "document-number" : "Document number",
+    "address" : "Address"
+  },
+  "land-list": {
+    "title": "Land list",
+    "table-column-code" : "Creation date",
+    "table-column-ubication" : "Search by date...",
+    "table-column-price" : "Description",
+    "table-column-sold" : "Search by description...",
+    "table-column-supplier" : "Amount",
+    "table-search-code" : "Search by code...",
+    "table-search-ubication" : "Search by ubication...",
+    "table-search-price" : "Search by price...",
+    "table-search-sold" : "Search by sold...",
+    "table-search-supplier" : "Search by supplier..."
+    
+  },
+  "land-form": {
+    "title": "Land form",
+    "code" : "Code",
+    "ubication" : "Ubication",    
+    "price" : "Price",
+    "description" : "Description",
+    "sold" : "Sold",
+    "supplier" : "Supplier"
   }
 }

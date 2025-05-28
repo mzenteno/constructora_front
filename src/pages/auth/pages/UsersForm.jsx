@@ -26,7 +26,7 @@ export const UsersForm = () => {
                   <label for="exampleInputPassword4">{t("users-form.email")}</label>
                   <input type="password" className="form-control" id="exampleInputPassword4" />
                 </div>
-                <button type="button" className="btn btn-primary btn-fw mr-2 mb-2">
+                <button type="button" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}
                 </button>
                 <button

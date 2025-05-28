@@ -45,7 +45,9 @@ export const Users = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3">No hay usuarios disponibles</td>
+                      <td colSpan="3" className="text-center">
+                        {t("util.message-not-data")}
+                      </td>
                     </tr>
                   )}
                 </tbody>

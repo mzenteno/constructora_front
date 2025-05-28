@@ -1,7 +1,7 @@
 import { useState} from 'react';
-import { DuplexService } from '@services/DuplexService';
+import { LandService } from '@services/LandService';
 
-export const UseDuplex = () => {
+export const UseLand = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,12 +11,14 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.create({
+      const response = await LandService.create({ 
         code: data.txtCode,
+        ubication: data.txtUbication,
+        price: parseInt(data.txtPrice, 10),
         description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+        sold: Boolean(parseInt(data.cboSold, 10)),
+        supplierId: parseInt(data.cboSupplier, 10)
+       });
       return response;
 
     } catch (err) {
@@ -33,12 +35,14 @@ export const UseDuplex = () => {
     setError(null);
 
     try {
-      const response = await DuplexService.update(id, {
+      const response = await LandService.update(id, { 
         code: data.txtCode,
+        ubication: data.txtUbication,
+        price: parseInt(data.txtPrice, 10),
         description: data.txtDescription,
-        address: data.txtAddress,
-        duplexUnities: data.duplexUnities
-      });
+        sold: Boolean(parseInt(data.cboSold, 10)),
+        supplierId: parseInt(data.cboSupplier, 10)
+       });
       return response;
 
     } catch (err) {
@@ -50,11 +54,11 @@ export const UseDuplex = () => {
     }
   };
 
-  const getAll = async () => {
+  const getAll = async (filter = {}) => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getAll();
+      const data = await LandService.getAll(filter);
       setData(data);
 
     } catch (err) {
@@ -69,7 +73,7 @@ export const UseDuplex = () => {
     setLoading(true);
 
     try {
-      const data = await DuplexService.getById(id);
+      const data = await LandService.getById(id);
       setData(data);
 
       return data;
