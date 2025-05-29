@@ -5,10 +5,6 @@ import "./index.css";
 import { AppRouter } from "@routes/AppRouter";
 import { I18nProvider } from "@store/I18nContext";
 import { AuthProvider } from "@store/AuthContext";
-import "./assets/vendors/js/vendor.bundle.base.js";
-import "./assets/js/hoverable-collapse.js";
-import "./assets/js/off-canvas.js";
-import "./assets/js/misc.js";
 
 createRoot(document.getElementById("root")).render(
   <I18nProvider>
