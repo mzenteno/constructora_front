@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
-import { UseExpenseType } from "@hooks/UseExpenseType";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { DeleteIcon } from "@assets/icons/DeleteIcon";
+import { UseExpenseType } from "@hooks/UseExpenseType";
+import { Loading } from "@utils/Loading";
 
 export const ExpenseType = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export const ExpenseType = () => {
     }
   };
 
-  if (loading) return <p>Cargando los datos...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (

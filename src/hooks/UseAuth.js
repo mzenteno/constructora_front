@@ -14,7 +14,8 @@ export const UseAuth = () => {
       return response;
     } catch (err) {
       setError(err.message);
-      return null;
+      throw err;
+
     } finally {
       setLoading(false);
     }

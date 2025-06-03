@@ -56,6 +56,7 @@ export const UseLand = () => {
 
   const getAll = async (filter = {}) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await LandService.getAll(filter);
@@ -63,7 +64,8 @@ export const UseLand = () => {
 
     } catch (err) {
       setError(err.message);
-
+      throw err;
+      
     } finally {
       setLoading(false);
     }
@@ -71,6 +73,7 @@ export const UseLand = () => {
 
   const getById = async (id) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await LandService.getById(id);
@@ -79,6 +82,7 @@ export const UseLand = () => {
       return data;
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);

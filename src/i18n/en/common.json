@@ -6,6 +6,11 @@
       "password": "Password",
       "forgot": "Forgot password?"
   },
+  "password": {
+      "title": "Change password",
+      "password1": "Password",
+      "password2": "Confirm password"
+  },
   "sidebar": {
       "title": "OPTIONS",
       "menu-auth": "Authentication",
@@ -31,7 +36,9 @@
     "new": "Add new",
     "save" : "Save",
     "cancel" : "Cancel",
-    "download" : "Download"
+    "download" : "Download",
+    "accept" : "Accept",
+    "message-sucess" : "The operation was completed successfully"
   },
   "navbar": {
       "user-option": "OPTIONS",
@@ -99,7 +106,13 @@
     "table-column-expense-type" : "Expense type",
     "table-search-createAt" : "Search by date...",
     "table-search-description" : "Search by description...",
-    "table-search-expense-type" : "Search by expense type..."
+    "table-search-expense-type" : "Search by expense type...",
+    "report-title" : "Expense report",
+    "report-date-generation" : "Generation date",
+    "report-column-createAt" : "Creation date",
+    "report-column-description" : "Description",
+    "report-column-expense-type" : "Expense type",
+    "report-column-amount" : "amount"
   },
   "expense-form": {
     "title": "Expense form",
@@ -131,17 +144,24 @@
   },
   "land-list": {
     "title": "Land list",
-    "table-column-code" : "Creation date",
-    "table-column-ubication" : "Search by date...",
-    "table-column-price" : "Description",
-    "table-column-sold" : "Search by description...",
-    "table-column-supplier" : "Amount",
+    "table-column-code" : "Code",
+    "table-column-ubication" : "Ubication",
+    "table-column-price" : "Amount",
+    "table-column-sold" : "Status",
+    "table-column-supplier" : "Supplier",
     "table-search-code" : "Search by code...",
     "table-search-ubication" : "Search by ubication...",
     "table-search-price" : "Search by price...",
     "table-search-sold" : "Search by sold...",
-    "table-search-supplier" : "Search by supplier..."
-    
+    "table-search-supplier" : "Search by supplier...",
+    "report-title" : "Land report",
+    "report-date-generation" : "Generation date",
+    "report-column-code" : "Code",
+    "report-column-sold" : "Status",
+    "report-column-supplier" : "Supplier",
+    "report-column-ubication" : "Ubication",
+    "report-column-description" : "Description",
+    "report-column-price" : "Amount"
   },
   "land-form": {
     "title": "Land form",
@@ -149,7 +169,7 @@
     "ubication" : "Ubication",    
     "price" : "Price",
     "description" : "Description",
-    "sold" : "Sold",
+    "sold" : "Status",
     "supplier" : "Supplier"
   }
 }

@@ -52,6 +52,7 @@ export const UseDuplexUnityBudgetItem = () => {
 
   const getAll = async (filter = {}) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await DuplexUnityBudgetItemService.getAll(filter);
@@ -59,6 +60,7 @@ export const UseDuplexUnityBudgetItem = () => {
 
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);
@@ -67,6 +69,7 @@ export const UseDuplexUnityBudgetItem = () => {
 
   const getById = async (id) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await DuplexUnityBudgetItemService.getById(id);
@@ -75,6 +78,7 @@ export const UseDuplexUnityBudgetItem = () => {
       return data;
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);
@@ -100,6 +104,7 @@ export const UseDuplexUnityBudgetItem = () => {
 
   const getByDuplexId = async (duplexId) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await DuplexUnityBudgetItemService.getByDuplexId(duplexId);
@@ -107,6 +112,7 @@ export const UseDuplexUnityBudgetItem = () => {
 
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);

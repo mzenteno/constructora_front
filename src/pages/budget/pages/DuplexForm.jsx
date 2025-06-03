@@ -5,18 +5,21 @@ import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseDuplex } from "@hooks/UseDuplex";
 import { UnityModal } from "@pages/budget/components/UnityModal";
+import { EditIcon } from "@assets/icons/EditIcon";
+import { Loading } from "@utils/Loading";
 
 export const DuplexForm = () => {
   const { id } = useParams();
   const isEdit = !!id;
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
   const [itemForm, setItemForm] = useState({ code: "", description: "" });
   const [rows, setRows] = useState([]);
 
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { create, update, getById } = UseDuplex();
+  const { loading, error, create, update, getById, getNewCode } = UseDuplex();
   const {
     register,
     handleSubmit,
@@ -37,6 +40,11 @@ export const DuplexForm = () => {
         });
         setRows(data.duplexUnities);
       });
+    } else {
+      getNewCode().then((data) => {
+        reset({ txtCode: data.code });
+        console.log(data);
+      });
     }
   }, [id]);
 
@@ -46,7 +54,7 @@ export const DuplexForm = () => {
       duplexUnities: rows,
     };
 
-    const response = isEdit ? update(id, payload) : create(payload);
+    const response = isEdit ? await update(id, payload) : await create(payload);
     if (response?.sucess !== false) {
       if (response) {
         navigate("/duplex");
@@ -55,10 +63,26 @@ export const DuplexForm = () => {
   };
 
   const handleNewUnity = () => {
-    setRows((prev) => [...prev, itemForm]);
+    if (editingIndex !== null) {
+      setRows((prev) => prev.map((item, idx) => (idx === editingIndex ? itemForm : item)));
+    } else {
+      setRows((prev) => [...prev, itemForm]);
+    }
+
     setItemForm({ code: "", description: "" });
+    setEditingIndex(null); // resetea modo edición
     setModalOpen(false);
   };
+
+  const handleUpdateClick = (e, idx) => {
+    e.preventDefault();
+    setItemForm(rows[idx]); // carga los datos en el formulario del modal
+    setEditingIndex(idx); // guarda el índice que estás editando
+    setModalOpen(true); // abre el modal
+  };
+
+  if (loading) return <Loading />;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <>
@@ -90,6 +114,7 @@ export const DuplexForm = () => {
                   <table className="table table-bordered table-striped mt-1">
                     <thead>
                       <tr>
+                        <th style={{ width: "20px" }}> </th>
                         <th> {t("duplex-form.table-column-code")} </th>
                         <th> {t("duplex-form.table-column-description")} </th>
                       </tr>
@@ -97,6 +122,9 @@ export const DuplexForm = () => {
                     <tbody>
                       {rows.map((row, idx) => (
                         <tr key={idx}>
+                          <td>
+                            <EditIcon width={18} height={18} style={{ cursor: "pointer" }} onClick={(e) => handleUpdateClick(e, idx)} />
+                          </td>
                           <td>{row.code}</td>
                           <td>{row.description}</td>
                         </tr>

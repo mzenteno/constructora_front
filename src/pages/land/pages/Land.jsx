@@ -10,6 +10,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import { Loading } from "@utils/Loading";
 
 export const Land = () => {
   const isFirstLoad = useRef(true);
@@ -89,9 +90,9 @@ export const Land = () => {
     // }
 
     doc.setFontSize(16);
-    doc.text("Reporte de Terrenos", 15, 20);
+    doc.text(t("land-list.report-title"), 15, 20);
     doc.setFontSize(10);
-    doc.text(`Fecha de generación: ${formattedDate}`, 15, 26);
+    doc.text(`${t("land-list.report-date-generation")}: ${formattedDate}`, 15, 26);
 
     const tableData = dataLand.map((item) => [item.code, item.sold, item.supplier.fullName, item.ubication, item.description, Number(item.price).toFixed(2)]);
 
@@ -99,9 +100,23 @@ export const Land = () => {
 
     autoTable(doc, {
       startY: 35,
-      head: [["Código", "Estado", "Proveedor", "Ubicación", "Descripción", "Precio"]],
+      head: [
+        [
+          t("land-list.report-column-code"),
+          t("land-list.report-column-sold"),
+          t("land-list.report-column-supplier"),
+          t("land-list.report-column-ubication"),
+          t("land-list.report-column-description"),
+          t("land-list.report-column-price"),
+        ],
+      ],
       body: tableData,
       styles: { fontSize: 9 },
+      headStyles: {
+        fillColor: [142, 148, 169],
+        textColor: [255, 255, 255],
+        fontStyle: "bold",
+      },
       foot: [["", "", "", "", "Total:", total.toFixed(2)]],
       footStyles: {
         fillColor: [240, 240, 240],
@@ -115,20 +130,20 @@ export const Land = () => {
 
   const handleDownloadExcel = async () => {
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Reporte de Gastos");
+    const worksheet = workbook.addWorksheet(t("land-list.report-title"));
 
     const today = new Date();
     const formattedDate = today.toLocaleDateString();
 
     // Encabezado título
     worksheet.mergeCells("A1:F1");
-    worksheet.getCell("A1").value = "Reporte de Terrenos";
+    worksheet.getCell("A1").value = t("land-list.report-title");
     worksheet.getCell("A1").font = { size: 16, bold: true };
     worksheet.getCell("A1").alignment = { horizontal: "center" };
 
     // Fecha de generación
     worksheet.mergeCells("A2:D2");
-    worksheet.getCell("A2").value = `Fecha de generación: ${formattedDate}`;
+    worksheet.getCell("A2").value = `${t("land-list.report-date-generation")}: ${formattedDate}`;
     worksheet.getCell("A2").font = { size: 10 };
     worksheet.getCell("A2").alignment = { horizontal: "left" };
 
@@ -136,7 +151,14 @@ export const Land = () => {
     worksheet.addRow([]);
 
     // Encabezados de tabla
-    worksheet.addRow(["Código", "Estado", "Proveedor", "Ubicación", "Descripción", "Precio"]);
+    worksheet.addRow([
+      t("land-list.report-column-code"),
+      t("land-list.report-column-sold"),
+      t("land-list.report-column-supplier"),
+      t("land-list.report-column-ubication"),
+      t("land-list.report-column-description"),
+      t("land-list.report-column-price"),
+    ]);
 
     // Datos
     dataLand.forEach((item) => {
@@ -172,7 +194,7 @@ export const Land = () => {
     saveAs(new Blob([buffer]), "reporte_gastos.xlsx");
   };
 
-  if (loadingLand || loadingSupplier) return <p>Cargando los datos...</p>;
+  if (loadingLand || loadingSupplier) return <Loading />;
   if (errorLand || errorSupplier) return <p>Error: {errorLand}</p>;
 
   const totalAmount = dataLand.reduce((sum, land) => sum + Number(land.price), 0);
@@ -219,7 +241,7 @@ export const Land = () => {
                           type="text"
                           className="form-control border-1"
                           style={{ padding: "3px 8px", border: "1px solid #dee2e6" }}
-                          placeholder={t("expense-list.table-search-description")}
+                          placeholder={t("land-list.table-search-code")}
                           value={filters.code}
                           onChange={handleCodeChange}
                           onKeyDown={(e) => e.key === "Enter" && getAllLandWithFilter()}

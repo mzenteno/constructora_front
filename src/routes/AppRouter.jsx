@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "@routes/PrivateRoute";
 import { Login } from "@pages/auth/pages/Login";
 import { Layout } from "@layouts/Layout";
+import { ChangePassword } from "@pages/auth/pages/ChangePassword";
 import { Dashboard } from "@pages/dashboard/Dashboard";
 import { Users } from "@pages/auth/pages/Users";
 import { UsersForm } from "@pages/auth/pages/UsersForm";
@@ -27,9 +28,12 @@ export const AppRouter = () => {
 
         <Route element={<PrivateRoute />}>
           <Route element={<Layout />}>
+            <Route path="/change-password" element={<ChangePassword />}></Route>
+
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/users-form" element={<UsersForm />} />
+            <Route path="/user" element={<Users />} />
+            <Route path="/user-form" element={<UsersForm />} />
+            <Route path="/user-form/:id" element={<UsersForm />} />
 
             <Route path="/duplex" element={<Duplex />} />
             <Route path="/duplex-form" element={<DuplexForm />} />

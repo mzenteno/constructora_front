@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { formatDateRange, formatDateInput } from "@utils/dateFunctions";
+import { formatDateRange, formatDateInput } from "@utils/DateFunctions";
 
 function DateRangeFilter({ startDate, endDate, onChange }) {
   const [visible, setVisible] = useState(false);

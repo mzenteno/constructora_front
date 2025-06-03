@@ -7,6 +7,7 @@ import { EditIcon } from "@assets/icons/EditIcon";
 import { DeleteIcon } from "@assets/icons/DeleteIcon";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { Loading } from "@utils/Loading";
 
 export const Supplier = () => {
   const isFirstLoad = useRef(true);
@@ -111,7 +112,7 @@ export const Supplier = () => {
     doc.save("report.pdf");
   };
 
-  if (loading) return <p>Cargando los datos...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (

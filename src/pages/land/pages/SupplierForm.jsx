@@ -4,13 +4,14 @@ import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseSupplier } from "@hooks/UseSupplier";
+import { Loading } from "@utils/Loading";
 
 export const SupplierForm = () => {
   const { id } = useParams();
   const isEdit = !!id;
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { create, update, getById } = UseSupplier();
+  const { loading, error, create, update, getById } = UseSupplier();
   const {
     register,
     handleSubmit,
@@ -33,13 +34,16 @@ export const SupplierForm = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    const response = isEdit ? update(id, data) : create(data);
+    const response = isEdit ? await update(id, data) : await create(data);
     if (response?.sucess !== false) {
       if (response) {
         navigate("/supplier");
       }
     }
   };
+
+  if (loading) return <Loading />;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <>

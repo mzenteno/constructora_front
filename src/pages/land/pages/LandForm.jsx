@@ -5,14 +5,15 @@ import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseSupplier } from "@hooks/UseSupplier";
 import { UseLand } from "@hooks/UseLand";
+import { Loading } from "@utils/Loading";
 
 export const LandForm = () => {
   const { id } = useParams();
   const isEdit = !!id;
-  const { data: dataSupplier, loading: loadingSupplier, error: errorSupplier, getAll: getAllSupplier } = UseSupplier();
+  const { loading: loadingSupplier, error: errorSupplier, data: dataSupplier, getAll: getAllSupplier } = UseSupplier();
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { create, update, getById } = UseLand();
+  const { loading: loadingLand, error: errorLand, create, update, getById } = UseLand();
   const {
     register,
     handleSubmit,
@@ -38,7 +39,7 @@ export const LandForm = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    const response = isEdit ? update(id, data) : create(data);
+    const response = isEdit ? await update(id, data) : await create(data);
     if (response?.sucess !== false) {
       if (response) {
         navigate("/land");
@@ -46,8 +47,8 @@ export const LandForm = () => {
     }
   };
 
-  if (loadingSupplier) return <p>Cargando los datos...</p>;
-  if (errorSupplier) return <p>Error: {errorSupplier}</p>;
+  if (loadingSupplier || loadingLand) return <Loading />;
+  if (errorSupplier || errorLand) return <p>Error: {errorSupplier}</p>;
 
   return (
     <>

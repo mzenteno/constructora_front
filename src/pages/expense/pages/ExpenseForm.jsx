@@ -5,14 +5,15 @@ import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseExpenseType } from "@hooks/UseExpenseType";
 import { UseExpense } from "@hooks/UseExpense";
+import { Loading } from "@utils/Loading";
 
 export const ExpenseForm = () => {
   const { id } = useParams();
   const isEdit = !!id;
-  const { data: dataExpenseType, loading: loadingExpenseType, error: errorExpenseType, getAll: getAllExpenseType } = UseExpenseType();
+  const { loading: loadingExpenseType, error: errorExpenseType, data: dataExpenseType, getAll: getAllExpenseType } = UseExpenseType();
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { create, update, getById } = UseExpense();
+  const { loading: loadingExpense, error: errorExpense, create, update, getById } = UseExpense();
   const {
     register,
     handleSubmit,
@@ -36,7 +37,7 @@ export const ExpenseForm = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    const response = isEdit ? update(id, data) : create(data);
+    const response = isEdit ? await update(id, data) : await create(data);
     if (response?.sucess !== false) {
       if (response) {
         navigate("/expense");
@@ -44,8 +45,8 @@ export const ExpenseForm = () => {
     }
   };
 
-  if (loadingExpenseType) return <p>Cargando los datos...</p>;
-  if (errorExpenseType) return <p>Error: {errorExpenseType}</p>;
+  if (loadingExpenseType || loadingExpense) return <Loading />;
+  if (errorExpenseType || errorExpense) return <p>Error: {errorExpenseType}</p>;
 
   return (
     <>

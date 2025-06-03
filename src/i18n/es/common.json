@@ -6,6 +6,11 @@
       "password": "Contraseña",
       "forgot": "Olvidaste tu contraseña?"
   },
+    "password": {
+      "title": "Cambiar contraseña",
+      "password1": "Contraseña",
+      "password2": "Confirmar contraseña"
+  },
   "sidebar": {
       "title": "OPCIONES",
       "menu-auth": "Autenticación",
@@ -31,7 +36,9 @@
     "new": "Adicionar",
     "save" : "Guardar",
     "cancel" : "Cancelar",
-    "download" : "Descargar"
+    "download" : "Descargar",
+    "accept" : "Aceptar",
+    "message-sucess" : "La operación se completó correctamente"
   },
   "navbar": {
       "user-option": "OPCIONES",
@@ -99,7 +106,13 @@
     "table-search-description" : "Buscar por descripción...",
     "table-column-amount" : "Cantidad",
     "table-column-expense-type" : "Tipo de gasto",
-    "table-search-expense-type" : "Buscar por tipo de gasto..."
+    "table-search-expense-type" : "Buscar por tipo de gasto...",
+    "report-title" : "Reporte de gastos",
+    "report-date-generation" : "Fecha de generación",
+    "report-column-createAt" : "Fecha de creación",
+    "report-column-description" : "Descripción",
+    "report-column-expense-type" : "Tipo de gasto",
+    "report-column-amount" : "Cantidad"
   },
   "expense-form": {
     "title": "Formulario de gastos",
@@ -133,21 +146,28 @@
     "title": "Lista de terrenos",
     "table-column-code" : "Código",
     "table-column-ubication" : "Ubicación",
-    "table-column-price" : "Precio",
+    "table-column-price" : "Cantidad",
     "table-column-sold" : "Estado",
     "table-column-supplier" : "Proveedor",
     "table-search-code" : "Buccar por código...",
     "table-search-ubication" : "Buscar por ubicación...",
     "table-search-price" : "Buscar por precio...",
     "table-search-sold" : "Buscar por estado...",
-    "table-search-supplier" : "Buscar por proveeor..."
-    
+    "table-search-supplier" : "Buscar por proveeor...",
+    "report-title" : "Reporte de terrenos",
+    "report-date-generation" : "Fecha de generación",
+    "report-column-code" : "Código",
+    "report-column-sold" : "Estado",
+    "report-column-supplier" : "Proveedor",
+    "report-column-ubication" : "Ubicación",
+    "report-column-description" : "Descripción",
+    "report-column-price" : "Cantidad"
   },
   "land-form": {
     "title": "Formulario de terreno",
     "code" : "Código",
-    "ubication" : "Ubicación",    
-    "price" : "Precio",
+    "ubication" : "Ubicación",
+    "price" : "Cantidad",
     "description" : "Descripción",
     "sold" : "Estado",
     "supplier" : "Proveedor"

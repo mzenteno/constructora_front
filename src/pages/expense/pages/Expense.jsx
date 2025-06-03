@@ -11,6 +11,7 @@ import autoTable from "jspdf-autotable";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import DateRangeFilter from "@utils/DateRangeFilter";
+import { Loading } from "@utils/Loading";
 
 export const Expense = () => {
   const isFirstLoad = useRef(true);
@@ -98,9 +99,9 @@ export const Expense = () => {
     const formattedDate = today.toLocaleDateString();
 
     doc.setFontSize(16);
-    doc.text("Reporte de Gastos", 15, 20);
+    doc.text(t("expense-list.report-title"), 15, 20);
     doc.setFontSize(10);
-    doc.text(`Fecha de generación: ${formattedDate}`, 15, 26);
+    doc.text(`${t("expense-list.report-date-generation")}: ${formattedDate}`, 15, 26);
 
     const tableData = dataExpense.map((item) => [item.createAt, item.expenseType.description, item.description, Number(item.amount).toFixed(2)]);
 
@@ -108,9 +109,14 @@ export const Expense = () => {
 
     autoTable(doc, {
       startY: 35,
-      head: [["Fecha", "Tipo", "Descripción", "Monto"]],
+      head: [[t("expense-list.report-column-createAt"), t("expense-list.report-column-expense-type"), t("expense-list.report-column-description"), t("expense-list.report-column-amount")]],
       body: tableData,
       styles: { fontSize: 9 },
+      headStyles: {
+        fillColor: [142, 148, 169],
+        textColor: [255, 255, 255],
+        fontStyle: "bold",
+      },
       foot: [["", "", "Total:", total.toFixed(2)]],
       footStyles: {
         fillColor: [240, 240, 240],
@@ -124,10 +130,15 @@ export const Expense = () => {
 
   const handleDownloadExcel = async () => {
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Reporte de Gastos");
+    const worksheet = workbook.addWorksheet(t("expense-list.report-title"));
 
     // Encabezados
-    worksheet.addRow(["Fecha", "Tipo", "Descripción", "Monto"]).font = { bold: true };
+    worksheet.addRow([
+      t("expense-list.report-column-createAt"),
+      t("expense-list.report-column-expense-type"),
+      t("expense-list.report-column-description"),
+      t("expense-list.report-column-amount"),
+    ]).font = { bold: true };
 
     // Datos
     dataExpense.forEach((item) => {
@@ -156,7 +167,7 @@ export const Expense = () => {
     saveAs(new Blob([buffer]), "report.xlsx");
   };
 
-  if (loadingExpense || loadingExpenseType) return <p>Cargando los datos...</p>;
+  if (loadingExpense || loadingExpenseType) return <Loading />;
   if (errorExpense || errorExpenseType) return <p>Error: {errorExpense}</p>;
 
   const totalAmount = dataExpense.reduce((sum, expense) => sum + Number(expense.amount), 0);

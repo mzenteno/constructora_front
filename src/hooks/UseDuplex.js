@@ -52,6 +52,7 @@ export const UseDuplex = () => {
 
   const getAll = async () => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await DuplexService.getAll();
@@ -59,6 +60,7 @@ export const UseDuplex = () => {
 
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);
@@ -67,6 +69,7 @@ export const UseDuplex = () => {
 
   const getById = async (id) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await DuplexService.getById(id);
@@ -75,6 +78,25 @@ export const UseDuplex = () => {
       return data;
     } catch (err) {
       setError(err.message);
+      throw err;
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getNewCode = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await DuplexService.getNewCode();
+      setData(data);
+
+      return data;
+    } catch (err) {
+      setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);
@@ -88,7 +110,8 @@ export const UseDuplex = () => {
     create,
     update,
     getAll,
-    getById
+    getById,
+    getNewCode
   };
 
 }

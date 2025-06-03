@@ -5,6 +5,7 @@ import { Title } from "@utils/Title";
 import { UseDuplex } from "@hooks/UseDuplex";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { DeleteIcon } from "@assets/icons/DeleteIcon";
+import { Loading } from "@utils/Loading";
 
 export const Duplex = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const Duplex = () => {
     navigate(`/duplex-form/${id}`);
   };
 
-  if (loading) return <p>Cargando los datos...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (

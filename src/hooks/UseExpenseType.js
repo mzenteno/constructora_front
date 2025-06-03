@@ -42,6 +42,7 @@ export const UseExpenseType = () => {
 
   const getAll = async (filter = {}) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await ExpenseTypeService.getAll(filter);
@@ -49,6 +50,7 @@ export const UseExpenseType = () => {
 
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);
@@ -57,6 +59,7 @@ export const UseExpenseType = () => {
 
   const getById = async (id) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await ExpenseTypeService.getById(id);
@@ -65,6 +68,7 @@ export const UseExpenseType = () => {
       return data;
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);

@@ -54,6 +54,7 @@ export const UseSupplier = () => {
 
   const getAll = async (filter = {}) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await SupplierService.getAll(filter);
@@ -61,6 +62,7 @@ export const UseSupplier = () => {
 
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);
@@ -69,6 +71,7 @@ export const UseSupplier = () => {
 
   const getById = async (id) => {
     setLoading(true);
+    setError(null);
 
     try {
       const data = await SupplierService.getById(id);
@@ -77,6 +80,7 @@ export const UseSupplier = () => {
       return data;
     } catch (err) {
       setError(err.message);
+      throw err;
 
     } finally {
       setLoading(false);

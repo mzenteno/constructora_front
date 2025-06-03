@@ -6,6 +6,7 @@ import { Title } from "@utils/Title";
 import { UseDuplexUnityBudgetItem } from "@hooks/UseDuplexUnityBudgetItem";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { BudgetAmountDuplexModal } from "@pages/budget/components/BudgetAmountDuplexModal";
+import { Loading } from "@utils/Loading";
 
 export const DuplexTrackingForm = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export const DuplexTrackingForm = () => {
   const [itemForm, setItemForm] = useState({ id: "", budgete: "", spent: "" });
 
   const { t } = useI18n();
-  const { data, loading, error, getByDuplexId, updateByDuplex } = UseDuplexUnityBudgetItem();
+  const { loading, error, data, getByDuplexId, updateByDuplex } = UseDuplexUnityBudgetItem();
 
   useEffect(() => {
     getByDuplexId(id);
@@ -41,7 +42,7 @@ export const DuplexTrackingForm = () => {
     await getByDuplexId(id);
   };
 
-  if (loading) return <p>Cargando los datos...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -98,7 +99,7 @@ export const DuplexTrackingForm = () => {
                       })
                   ) : (
                     <tr>
-                      <td colSpan="6" className="text-center">
+                      <td colSpan="7" className="text-center">
                         {t("util.message-not-data")}
                       </td>
                     </tr>

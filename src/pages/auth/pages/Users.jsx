@@ -1,19 +1,33 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
+import { EditIcon } from "@assets/icons/EditIcon";
+import { DeleteIcon } from "@assets/icons/DeleteIcon";
 import { UseUsers } from "@hooks/UseUsers";
+import { Loading } from "@utils/Loading";
 
 export const Users = () => {
   const navigate = useNavigate();
   const { t } = useI18n();
+  const { data, loading, error, getAll } = UseUsers();
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   const handleAddNewClick = (e) => {
     e.preventDefault();
-    navigate("/users-form");
+    navigate("/user-form");
   };
 
-  const { data, loading } = UseUsers();
-  if (loading) return <p>Cargando usuarios...</p>;
+  const handleUpdateClick = (e, id) => {
+    e.preventDefault();
+    navigate(`/user-form/${id}`);
+  };
+
+  if (loading) return <Loading />;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <>
@@ -29,6 +43,7 @@ export const Users = () => {
               <table className="table table-bordered table-striped mt-3">
                 <thead>
                   <tr>
+                    <th style={{ width: "20px" }}> </th>
                     <th> {t("users-list.table-column-username")} </th>
                     <th> {t("users-list.table-column-fullname")} </th>
                     <th> {t("users-list.table-column-email")} </th>
@@ -38,6 +53,10 @@ export const Users = () => {
                   {data.length > 0 ? (
                     data.map((user) => (
                       <tr key={user.id}>
+                        <td>
+                          <EditIcon width={18} height={18} style={{ cursor: "pointer" }} onClick={(e) => handleUpdateClick(e, user.id)} />
+                          <DeleteIcon width={21} height={21} style={{ cursor: "pointer" }} />
+                        </td>
                         <td>{user.userName}</td>
                         <td>{user.fullName}</td>
                         <td>{user.email}</td>
@@ -45,7 +64,7 @@ export const Users = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3" className="text-center">
+                      <td colSpan="4" className="text-center">
                         {t("util.message-not-data")}
                       </td>
                     </tr>

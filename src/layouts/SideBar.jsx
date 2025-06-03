@@ -16,7 +16,7 @@ export const SideBar = () => {
         <li className="nav-item nav-category">{t("sidebar.title")}</li>
         <SideBarItem title={t("sidebar.menu-auth")} hasSubItem href="ui-autenticacion" IconComponent={UserMenuIcon}>
           <SideBarItemMenu id="ui-autenticacion">
-            <SideBarItemSubMenu title={t("sidebar.menu-auth-user")} path="/users" />
+            <SideBarItemSubMenu title={t("sidebar.menu-auth-user")} path="/user" />
           </SideBarItemMenu>
         </SideBarItem>
 

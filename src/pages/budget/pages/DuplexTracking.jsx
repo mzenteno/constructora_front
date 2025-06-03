@@ -4,11 +4,12 @@ import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
 import { UseDuplex } from "@hooks/UseDuplex";
 import { EditIcon } from "@assets/icons/EditIcon";
+import { Loading } from "@utils/Loading";
 
 export const DuplexTracking = () => {
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { data, loading, error, getAll } = UseDuplex();
+  const { loading, error, data, getAll } = UseDuplex();
 
   useEffect(() => {
     getAll();
@@ -19,7 +20,7 @@ export const DuplexTracking = () => {
     navigate(`/duplex-tracking-form/${id}`);
   };
 
-  if (loading) return <p>Cargando los datos...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (

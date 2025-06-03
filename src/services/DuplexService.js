@@ -68,4 +68,20 @@ export const DuplexService = {
       }
     },
 
+     async getNewCode() {
+      try {
+        const response = await AxiosInstance.get(`${baseURL}/new-code`);
+  
+        const result = response.data;
+        if (!result.success) {
+          throw new Error(result.message || 'An error occurred. The operation could not be completed.');
+        }
+  
+        return result.data;
+      } catch (error) {
+        console.error("Error:", error);
+        throw error;
+      }
+    }
+
 }

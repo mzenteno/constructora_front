@@ -4,6 +4,7 @@ import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseExpenseType } from "@hooks/UseExpenseType";
+import { Loading } from "@utils/Loading";
 
 export const ExpenseTypeForm = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ export const ExpenseTypeForm = () => {
 
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { create, update, getById } = UseExpenseType();
+  const { loading, error, create, update, getById } = UseExpenseType();
   const {
     register,
     handleSubmit,
@@ -20,7 +21,7 @@ export const ExpenseTypeForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const response = isEdit ? update(id, data) : create(data);
+    const response = isEdit ? await update(id, data) : await create(data);
     if (response?.sucess !== false) {
       if (response) {
         navigate("/expense-type");
@@ -37,6 +38,9 @@ export const ExpenseTypeForm = () => {
       });
     }
   }, [id]);
+
+  if (loading) return <Loading />;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <>
