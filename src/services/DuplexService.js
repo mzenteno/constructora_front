@@ -82,6 +82,22 @@ export const DuplexService = {
         console.error("Error:", error);
         throw error;
       }
-    }
+    },
+
+    async updateContractorsDeposit(id, data) {
+      try {
+        const response = await AxiosInstance.put(`${baseURL}/contractors-deposit/${id}`, data);
+        const result = response.data;
+  
+        if (!result.success) {
+          throw new Error(result.message || 'Register update failed.');
+        }
+  
+        return result.data;
+      } catch (error) {
+        console.error("Error:", error);
+        throw error;
+      }
+    },
 
 }

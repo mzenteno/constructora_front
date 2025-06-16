@@ -103,6 +103,27 @@ export const UseDuplex = () => {
     }
   };
 
+  const updateContractorsDeposit = async (id, data) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await DuplexService.updateContractorsDeposit(id, {
+        contractorsFee: data.contractorsFee,
+        deposit1: data.deposit1,
+        deposit2: data.deposit2
+      });
+      return response;
+
+    } catch (err) {
+      setError(err.message);
+      throw err;
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
     loading,
@@ -111,7 +132,8 @@ export const UseDuplex = () => {
     update,
     getAll,
     getById,
-    getNewCode
+    getNewCode,
+    updateContractorsDeposit
   };
 
 }

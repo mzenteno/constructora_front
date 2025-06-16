@@ -12455,7 +12455,7 @@ code {
   border-left: 0;
   border-bottom: 0;
   font: normal normal normal 24px/1 "Material Design Icons";
-  content: "\f35d";
+  /* content: "\f35d"; */
   width: auto;
   height: auto;
   vertical-align: baseline;

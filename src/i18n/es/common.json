@@ -1,32 +1,32 @@
 {
   "login": {
-      "name": "Duplex Lehigh Acres",
-      "title": "Inicie sesión para continuar",
-      "user": "Nombre de usuario",
-      "password": "Contraseña",
-      "forgot": "Olvidaste tu contraseña?"
+    "name": "Duplex Lehigh Acres",
+    "title": "Inicie sesión para continuar",
+    "user": "Nombre de usuario",
+    "password": "Contraseña",
+    "forgot": "Olvidaste tu contraseña?"
   },
-    "password": {
-      "title": "Cambiar contraseña",
-      "password1": "Contraseña",
-      "password2": "Confirmar contraseña"
+  "password": {
+    "title": "Cambiar contraseña",
+    "password1": "Contraseña",
+    "password2": "Confirmar contraseña"
   },
   "sidebar": {
-      "title": "OPCIONES",
-      "menu-auth": "Autenticación",
-      "menu-auth-user": "Usuarios",
-      "menu-budget" : "Presupuestos",
-      "menu-budget-duplex" : "Registro de dúplex",
-      "menu-budget-tracking" : "Seguimiento de dúplex",
-      "menu-budget-report" : "Reportes",
-      "menu-land" : "Terrenos",
-      "menu-land-supplier" : "Proveedores",
-      "menu-land-land" : "Compra de terrenos",
-      "menu-land-report" : "Reportes",
-      "menu-expense" : "Gastos",
-      "menu-expense-type" : "Tipo de gasto",
-      "menu-expense-register" : "Registro de gasto",
-      "menu-expense-report" : "Reportes"
+    "title": "OPCIONES",
+    "menu-auth": "Autenticación",
+    "menu-auth-user": "Usuarios",
+    "menu-budget" : "Presupuestos",
+    "menu-budget-duplex" : "Registro de dúplex",
+    "menu-budget-tracking" : "Seguimiento de dúplex",
+    "menu-budget-report" : "Reportes",
+    "menu-land" : "Terrenos",
+    "menu-land-supplier" : "Proveedores",
+    "menu-land-land" : "Compra de terrenos",
+    "menu-land-report" : "Reportes",
+    "menu-expense" : "Gastos",
+    "menu-expense-type" : "Tipo de gasto",
+    "menu-expense-register" : "Registro de gasto",
+    "menu-expense-report" : "Reportes"
   },
   "util": {
     "message-not-data": "No existen datos"
@@ -37,15 +37,16 @@
     "save" : "Guardar",
     "cancel" : "Cancelar",
     "download" : "Descargar",
+    "totals" : "Totales",
     "accept" : "Aceptar",
     "message-sucess" : "La operación se completó correctamente"
   },
   "navbar": {
-      "user-option": "OPCIONES",
-      "user-option-change-password": "Cambiar clave",
-      "user-option-logout": "Cerrar sesión",
-      "languaje-english": "inglés",
-      "languaje-spanish": "español"
+    "user-option": "OPCIONES",
+    "user-option-change-password": "Cambiar clave",
+    "user-option-logout": "Cerrar sesión",
+    "languaje-english": "inglés",
+    "languaje-spanish": "español"
   },
   "users-list": {
     "title": "Lista de usuarios",
@@ -80,14 +81,20 @@
     "table-column-description" : "Descripción",
     "table-column-address" : "Dirección"
   },
-    "duplex-tracking-form": {
+  "duplex-tracking-form": {
     "title": "Seguimiento dúplex",
-    "table-column-payitem" : "Artículo de pago",
+    "table-column-payitem" : "Artículo pago",
     "table-column-description" : "Descripción",
     "table-column-unit" : "Unidad",
-    "table-column-budgete" : "Presupuesto",
+    "table-column-budgete" : "Presupuestado",
     "table-column-spent" : "Gastado",
-    "table-column-real" : "Real"
+    "table-column-real" : "Real",
+    "modal-sub-total-spent" : "Sub total",
+    "modal-contractor" : "Honorarios contratista",
+    "modal-total-to-date" : "Total to date",
+    "modal-deposit1" : "1er depósito",
+    "modal-deposit2" : "2do depósito",
+    "modal-balance-operate" : "Balance de operación"
   },
   "expense-type-list": {
     "title": "Lista de tipos de gasto",

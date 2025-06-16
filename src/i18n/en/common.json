@@ -37,6 +37,7 @@
     "save" : "Save",
     "cancel" : "Cancel",
     "download" : "Download",
+    "totals" : "Totals",
     "accept" : "Accept",
     "message-sucess" : "The operation was completed successfully"
   },
@@ -87,7 +88,13 @@
     "table-column-unit" : "Unit",
     "table-column-budgete" : "Budgete",
     "table-column-spent" : "Spent",
-    "table-column-real" : "Real"
+    "table-column-real" : "Real",
+    "modal-sub-total-spent" : "Sub total",
+    "modal-contractor" : "Ccontractor's fee",
+    "modal-total-to-date" : "Total to date",
+    "modal-deposit1" : "1er deposit",
+    "modal-deposit2" : "2do deposit",
+    "modal-balance-operate" : "Balance to operate"
   },
   "expense-type-list": {
     "title": "Expense type list",

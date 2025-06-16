@@ -24,7 +24,6 @@ export const SideBar = () => {
           <SideBarItemMenu id="ui-presupuesto">
             <SideBarItemSubMenu title={t("sidebar.menu-budget-duplex")} path="/duplex" />
             <SideBarItemSubMenu title={t("sidebar.menu-budget-tracking")} path="/duplex-tracking" />
-            <SideBarItemSubMenu title={t("sidebar.menu-budget-report")} path="/duplex-report" />
           </SideBarItemMenu>
         </SideBarItem>
 

@@ -12,6 +12,7 @@ export const DuplexForm = () => {
   const { id } = useParams();
   const isEdit = !!id;
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const [itemForm, setItemForm] = useState({ code: "", description: "" });
@@ -29,8 +30,7 @@ export const DuplexForm = () => {
 
   useEffect(() => {
     if (isEdit) {
-      const btn = document.getElementById("btnAddDuplexUnity");
-      btn.disabled = true;
+      setIsButtonDisabled(true);
 
       getById(id).then((data) => {
         reset({
@@ -43,7 +43,6 @@ export const DuplexForm = () => {
     } else {
       getNewCode().then((data) => {
         reset({ txtCode: data.code });
-        console.log(data);
       });
     }
   }, [id]);
@@ -107,7 +106,7 @@ export const DuplexForm = () => {
                 </div>
 
                 <div className="form-group">
-                  <button id="btnAddDuplexUnity" type="button" className="btn btn-danger btn-fw mr-1" onClick={() => setModalOpen(true)}>
+                  <button type="button" className="btn btn-danger btn-fw mr-1" disabled={isButtonDisabled} onClick={() => setModalOpen(true)}>
                     {t("duplex-form.button-unity")}
                   </button>
 
