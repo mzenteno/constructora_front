@@ -12869,15 +12869,12 @@ dl {
 /* === Landing screens === */
 /* Auth */
 .auth .login-half-bg {
-  background: url("../../images/auth/login-bg.jpg");
   background-size: cover; }
 
 .auth .register-half-bg {
-  background: url("../../images/auth/register-bg.jpg");
   background-size: cover; }
 
 .auth.lock-full-bg {
-  background: url("../../images/auth/lockscreen-bg.jpg");
   background-size: cover; }
 
 .auth .lock-profile-img {
@@ -13051,7 +13048,6 @@ dl {
     right: -20px;
     left: -20px;
     bottom: -20px;
-    background: url("../images/samples/lockscreen-bg.jpg") no-repeat center center;
     background-size: cover;
     overflow: hidden;
     min-height: 100%; }
@@ -14224,7 +14220,6 @@ dl {
   .card-weather .card-body {
     background: #ffffff; }
     .card-weather .card-body:first-child {
-      background: url("../../images/samples/weather.svg") no-repeat center;
       background-size: cover; }
   .card-weather .weather-date-location {
     padding: 0 0 38px; }
