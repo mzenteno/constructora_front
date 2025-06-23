@@ -52,7 +52,8 @@ export const ExpenseTypeForm = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                   <label>{t("expense-type-form.description")}</label>
-                  <input type="text" className="form-control" {...register("txtDescription", { required: t("login.user_required") })} />
+                  <input type="text" className={`form-control ${errors.txtDescription ? "is-invalid" : ""}`} {...register("txtDescription", { required: t("util.value-required") })} />
+                  {errors.txtDescription && <div className="invalid-feedback d-block">{errors.txtDescription.message}</div>}
                 </div>
                 <button type="submit" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}

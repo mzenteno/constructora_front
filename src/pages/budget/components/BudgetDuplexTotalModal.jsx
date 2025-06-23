@@ -3,7 +3,7 @@ import { useI18n } from "@store/I18nContext";
 import { UseDuplex } from "@hooks/UseDuplex";
 import { Loading } from "@utils/Loading";
 
-export const BudgetDuplexTotalModal = ({ show, onClose, form }) => {
+export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
   const { t } = useI18n();
   const { loading, error, updateContractorsDeposit, getById } = UseDuplex();
   const [formData, setFormData] = useState({
@@ -84,7 +84,7 @@ export const BudgetDuplexTotalModal = ({ show, onClose, form }) => {
     const response = await updateContractorsDeposit(form.id, payload);
     if (response?.sucess !== false) {
       if (response) {
-        onClose();
+        onSave();
       }
     }
   };

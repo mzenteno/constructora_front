@@ -1,35 +1,41 @@
 {
   "login": {
-      "name": "Duplex Lehigh Acres",
-      "title": "Sign in to continue",
-      "user": "User name",
-      "password": "Password",
-      "forgot": "Forgot password?"
+    "name": "Duplex Lehigh Acres",
+    "title": "Sign in to continue",
+    "user": "User name",
+    "password": "Password",
+    "forgot": "Forgot password?"
   },
   "password": {
-      "title": "Change password",
-      "password1": "Password",
-      "password2": "Confirm password"
+    "title": "Change password",
+    "password1": "Password",
+    "password2": "Confirm password"
   },
   "sidebar": {
-      "title": "OPTIONS",
-      "menu-auth": "Authentication",
-      "menu-auth-user": "Users",
-      "menu-budget" : "Budget",
-      "menu-budget-duplex" : "Duplex registration",
-      "menu-budget-tracking" : "Duplex tracking",
-      "menu-budget-report" : "Reports",
-      "menu-land" : "Lands",
-      "menu-land-supplier" : "Suppliers",
-      "menu-land-land" : "Purchase of lands",
-      "menu-land-report" : "Reports",
-      "menu-expense" : "Expenses",
-      "menu-expense-type" : "Expense type",
-      "menu-expense-register" : "Expense record",
-      "menu-expense-report" : "Reports"
+    "title": "OPTIONS",
+    "menu-auth": "Authentication",
+    "menu-auth-user": "Users",
+    "menu-budget" : "Budget",
+    "menu-budget-duplex" : "Duplex registration",
+    "menu-budget-tracking" : "Duplex tracking",
+    "menu-budget-report" : "Reports",
+    "menu-land" : "Lands",
+    "menu-land-supplier" : "Suppliers",
+    "menu-land-land" : "Purchase of lands",
+    "menu-land-report" : "Reports",
+    "menu-expense" : "Expenses",
+    "menu-expense-type" : "Expense type",
+    "menu-expense-register" : "Expense record",
+    "menu-expense-report" : "Reports"
   },
   "util": {
-    "message-not-data": "there is not data"
+    "date": "Date",
+    "message-not-data": "There is not data",
+    "value-required": "Required value",
+    "error-duplex-unity": "You must enter 2 units",
+    "error-value-decimal": "Digit a valid numeric value",
+    "error-value-email": "Enter a valid email",
+    "report-date-generation" : "Generation date"
   },
   "button": {
     "login": "Sign in",
@@ -42,11 +48,11 @@
     "message-sucess" : "The operation was completed successfully"
   },
   "navbar": {
-      "user-option": "OPTIONS",
-      "user-option-change-password": "Change password",
-      "user-option-logout": "Log out",
-      "languaje-english": "english",
-      "languaje-spanish": "spanish"
+    "user-option": "OPTIONS",
+    "user-option-change-password": "Change password",
+    "user-option-logout": "Log out",
+    "languaje-english": "english",
+    "languaje-spanish": "spanish"
   },
   "users-list": {
     "title": "Users list",
@@ -89,12 +95,14 @@
     "table-column-budgete" : "Budgete",
     "table-column-spent" : "Spent",
     "table-column-real" : "Real",
+    "menu-spent-detail" : "Spent detail",
     "modal-sub-total-spent" : "Sub total",
     "modal-contractor" : "Ccontractor's fee",
     "modal-total-to-date" : "Total to date",
     "modal-deposit1" : "1er deposit",
     "modal-deposit2" : "2do deposit",
-    "modal-balance-operate" : "Balance to operate"
+    "modal-balance-operate" : "Balance to operate",
+    "report-title" : "Duplex report"
   },
   "expense-type-list": {
     "title": "Expense type list",
@@ -115,7 +123,6 @@
     "table-search-description" : "Search by description...",
     "table-search-expense-type" : "Search by expense type...",
     "report-title" : "Expense report",
-    "report-date-generation" : "Generation date",
     "report-column-createAt" : "Creation date",
     "report-column-description" : "Description",
     "report-column-expense-type" : "Expense type",
@@ -162,7 +169,6 @@
     "table-search-sold" : "Search by sold...",
     "table-search-supplier" : "Search by supplier...",
     "report-title" : "Land report",
-    "report-date-generation" : "Generation date",
     "report-column-code" : "Code",
     "report-column-sold" : "Status",
     "report-column-supplier" : "Supplier",

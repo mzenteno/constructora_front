@@ -101,7 +101,7 @@ export const Expense = () => {
     doc.setFontSize(16);
     doc.text(t("expense-list.report-title"), 15, 20);
     doc.setFontSize(10);
-    doc.text(`${t("expense-list.report-date-generation")}: ${formattedDate}`, 15, 26);
+    doc.text(`${t("util.report-date-generation")}: ${formattedDate}`, 15, 26);
 
     const tableData = dataExpense.map((item) => [item.createAt, item.expenseType.description, item.description, Number(item.amount).toFixed(2)]);
 

@@ -1,16 +1,22 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseSupplier } from "@hooks/UseSupplier";
+import { ErrorModal } from "@utils/ErrorModal";
 import { Loading } from "@utils/Loading";
 
 export const SupplierForm = () => {
   const { id } = useParams();
   const isEdit = !!id;
-  const navigate = useNavigate();
   const { t } = useI18n();
+  const navigate = useNavigate();
+  const [modalError, setModalError] = useState({
+    show: false,
+    message: "",
+  });
+
   const { loading, error, create, update, getById } = UseSupplier();
   const {
     register,
@@ -55,23 +61,35 @@ export const SupplierForm = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                   <label>{t("supplier-form.full-name")}</label>
-                  <input type="text" className="form-control" {...register("txtFullName", { required: t("login.user_required") })} />
+                  <input type="text" className={`form-control ${errors.txtFullName ? "is-invalid" : ""}`} {...register("txtFullName", { required: t("util.value-required") })} />
+                  {errors.txtFullName && <div className="invalid-feedback d-block">{errors.txtFullName.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("supplier-form.phone")}</label>
-                  <input type="text" className="form-control" {...register("txtPhone", { required: t("login.user_required") })} />
+                  <input type="text" className="form-control" {...register("txtPhone")} />
                 </div>
                 <div className="form-group">
                   <label>{t("supplier-form.email")}</label>
-                  <input type="text" className="form-control" {...register("txtEmail", { required: t("login.user_required") })} />
+                  <input
+                    type="text"
+                    className={`form-control ${errors.txtEmail ? "is-invalid" : ""}`}
+                    {...register("txtEmail", {
+                      required: t("util.value-required"),
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: t("util.error-value-email"),
+                      },
+                    })}
+                  />
+                  {errors.txtEmail && <div className="invalid-feedback d-block">{errors.txtEmail.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("supplier-form.document-number")}</label>
-                  <input type="text" className="form-control" {...register("txtDocumentNumber", { required: t("login.user_required") })} />
+                  <input type="text" className="form-control" {...register("txtDocumentNumber")} />
                 </div>
                 <div className="form-group">
                   <label>{t("supplier-form.address")}</label>
-                  <input type="text" className="form-control" {...register("txtAddress", { required: t("login.user_required") })} />
+                  <input type="text" className="form-control" {...register("txtAddress")} />
                 </div>
                 <button type="submit" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}
@@ -89,6 +107,7 @@ export const SupplierForm = () => {
           </div>
         </div>
       </div>
+      <ErrorModal show={modalError.show} message={modalError.message} onClose={() => setModalError({ show: false, message: "" })} />
     </>
   );
 };

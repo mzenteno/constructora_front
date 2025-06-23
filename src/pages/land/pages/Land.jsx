@@ -92,7 +92,7 @@ export const Land = () => {
     doc.setFontSize(16);
     doc.text(t("land-list.report-title"), 15, 20);
     doc.setFontSize(10);
-    doc.text(`${t("land-list.report-date-generation")}: ${formattedDate}`, 15, 26);
+    doc.text(`${t("util.report-date-generation")}: ${formattedDate}`, 15, 26);
 
     const tableData = dataLand.map((item) => [item.code, item.sold, item.supplier.fullName, item.ubication, item.description, Number(item.price).toFixed(2)]);
 
@@ -143,7 +143,7 @@ export const Land = () => {
 
     // Fecha de generación
     worksheet.mergeCells("A2:D2");
-    worksheet.getCell("A2").value = `${t("land-list.report-date-generation")}: ${formattedDate}`;
+    worksheet.getCell("A2").value = `${t("util.report-date-generation")}: ${formattedDate}`;
     worksheet.getCell("A2").font = { size: 10 };
     worksheet.getCell("A2").alignment = { horizontal: "left" };
 

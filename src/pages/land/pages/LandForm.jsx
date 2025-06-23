@@ -60,19 +60,32 @@ export const LandForm = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                   <label>{t("land-form.code")}</label>
-                  <input type="text" className="form-control" {...register("txtCode", { required: t("login.user_required") })} />
+                  <input type="text" className={`form-control ${errors.txtCode ? "is-invalid" : ""}`} {...register("txtCode", { required: t("util.value-required") })} />
+                  {errors.txtCode && <div className="invalid-feedback d-block">{errors.txtCode.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("land-form.ubication")}</label>
-                  <input type="text" className="form-control" {...register("txtUbication", { required: t("login.user_required") })} />
+                  <input type="text" className={`form-control ${errors.txtUbication ? "is-invalid" : ""}`} {...register("txtUbication", { required: t("util.value-required") })} />
+                  {errors.txtUbication && <div className="invalid-feedback d-block">{errors.txtUbication.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("land-form.price")}</label>
-                  <input type="text" className="form-control" {...register("txtPrice", { required: t("login.user_required") })} />
+                  <input
+                    type="text"
+                    className={`form-control ${errors.txtPrice ? "is-invalid" : ""}`}
+                    {...register("txtPrice", {
+                      required: t("util.value-required"),
+                      pattern: {
+                        value: /^\d+(\.\d{1,2})?$/,
+                        message: t("util.error-value-decimal"),
+                      },
+                    })}
+                  />
+                  {errors.txtPrice && <div className="invalid-feedback d-block">{errors.txtPrice.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("land-form.description")}</label>
-                  <input type="text" className="form-control" {...register("txtDescription", { required: t("login.user_required") })} />
+                  <input type="text" className="form-control" {...register("txtDescription")} />
                 </div>
                 <div className="form-group">
                   <label>{t("land-form.sold")}</label>
@@ -83,13 +96,14 @@ export const LandForm = () => {
                 </div>
                 <div className="form-group">
                   <label>{t("land-form.supplier")}</label>
-                  <select className="form-control" {...register("cboSupplier", { required: t("login.user_required") })}>
+                  <select className={`form-control ${errors.cboSupplier ? "is-invalid" : ""}`} {...register("cboSupplier", { required: t("util.value-required") })}>
                     {dataSupplier.map((supplier) => (
                       <option key={supplier.id} value={supplier.id}>
                         {supplier.fullName}
                       </option>
                     ))}
                   </select>
+                  {errors.cboSupplier && <div className="invalid-feedback d-block">{errors.cboSupplier.message}</div>}
                 </div>
                 <button type="submit" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}

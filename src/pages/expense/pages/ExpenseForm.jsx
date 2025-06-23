@@ -58,25 +58,38 @@ export const ExpenseForm = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                   <label>{t("expense-form.createAt")}</label>
-                  <input type="date" className="form-control" {...register("dpkCreateAt", { required: t("login.user_required") })} />
+                  <input type="date" className={`form-control ${errors.dpkCreateAt ? "is-invalid" : ""}`} {...register("dpkCreateAt", { required: t("util.value-required") })} />
+                  {errors.dpkCreateAt && <div className="invalid-feedback d-block">{errors.dpkCreateAt.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("expense-form.expense-type")}</label>
-                  <select className="form-control" {...register("cboExpenseType", { required: t("login.user_required") })}>
+                  <select className={`form-control ${errors.cboExpenseType ? "is-invalid" : ""}`} {...register("cboExpenseType", { required: t("util.value-required") })}>
                     {dataExpenseType.map((type) => (
                       <option key={type.id} value={type.id}>
                         {type.description}
                       </option>
                     ))}
                   </select>
+                  {errors.cboExpenseType && <div className="invalid-feedback d-block">{errors.cboExpenseType.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("expense-form.description")}</label>
-                  <input type="text" className="form-control" {...register("txtDescription", { required: t("login.user_required") })} />
+                  <input type="text" className="form-control" {...register("txtDescription")} />
                 </div>
                 <div className="form-group">
                   <label>{t("expense-form.amount")}</label>
-                  <input type="text" className="form-control" {...register("txtAmount", { required: t("login.user_required") })} />
+                  <input
+                    type="text"
+                    className={`form-control ${errors.txtAmount ? "is-invalid" : ""}`}
+                    {...register("txtAmount", {
+                      required: t("util.value-required"),
+                      pattern: {
+                        value: /^\d+(\.\d{1,2})?$/,
+                        message: t("util.error-value-decimal"),
+                      },
+                    })}
+                  />
+                  {errors.txtAmount && <div className="invalid-feedback d-block">{errors.txtAmount.message}</div>}
                 </div>
                 <button type="submit" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}

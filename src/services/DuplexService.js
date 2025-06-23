@@ -60,8 +60,18 @@ export const DuplexService = {
         if (!result.success) {
           throw new Error(result.message || 'An error occurred. The operation could not be completed.');
         }
+        const item = result.data;
+
+
+        const dataWithConverted = {
+          ...item,
+          subTotalSpent: item.subTotalSpent.toFixed(2),
+          contractorsFee: item.contractorsFee.toFixed(2),
+          deposit1: item.deposit1.toFixed(2),
+          deposit2: item.deposit2.toFixed(2)
+        };
   
-        return result.data;
+        return dataWithConverted;
       } catch (error) {
         console.error("Error:", error);
         throw error;

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { UseDuplex } from "@hooks/UseDuplex";
 import { UnityModal } from "@pages/budget/components/UnityModal";
 import { EditIcon } from "@assets/icons/EditIcon";
+import { ErrorModal } from "@utils/ErrorModal";
 import { Loading } from "@utils/Loading";
 
 export const DuplexForm = () => {
@@ -13,6 +14,10 @@ export const DuplexForm = () => {
   const isEdit = !!id;
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [modalError, setModalError] = useState({
+    show: false,
+    message: "",
+  });
   const [modalOpen, setModalOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const [itemForm, setItemForm] = useState({ code: "", description: "" });
@@ -53,6 +58,14 @@ export const DuplexForm = () => {
       duplexUnities: rows,
     };
 
+    if (payload.duplexUnities.length < 2) {
+      setModalError({
+        show: true,
+        message: t("util.error-duplex-unity"),
+      });
+      return;
+    }
+
     const response = isEdit ? await update(id, payload) : await create(payload);
     if (response?.sucess !== false) {
       if (response) {
@@ -71,6 +84,13 @@ export const DuplexForm = () => {
     setItemForm({ code: "", description: "" });
     setEditingIndex(null); // resetea modo edición
     setModalOpen(false);
+  };
+
+  const handleNewUnityClick = () => {
+    if (rows.length < 2) {
+      setItemForm({ code: "", description: "" });
+      setModalOpen(true);
+    }
   };
 
   const handleUpdateClick = (e, idx) => {
@@ -93,20 +113,20 @@ export const DuplexForm = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                   <label>{t("duplex-form.code")}</label>
-                  <input type="text" className="form-control" {...register("txtCode", { required: t("login.user_required") })} />
-                  {errors.txtUserName && <small className="text-danger">{errors.txtUserName.message}</small>}
+                  <input type="text" className="form-control" {...register("txtCode")} readOnly />
                 </div>
                 <div className="form-group">
                   <label>{t("duplex-form.description")}</label>
-                  <input type="text" className="form-control" {...register("txtDescription", { required: t("login.user_required") })} />
+                  <input type="text" className={`form-control ${errors.txtDescription ? "is-invalid" : ""}`} {...register("txtDescription", { required: t("util.value-required") })} />
+                  {errors.txtDescription && <div className="invalid-feedback d-block">{errors.txtDescription.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("duplex-form.address")}</label>
-                  <input type="text" className="form-control" {...register("txtAddress", { required: t("login.user_required") })} />
+                  <input type="text" className="form-control" {...register("txtAddress")} />
                 </div>
 
                 <div className="form-group">
-                  <button type="button" className="btn btn-danger btn-fw mr-1" disabled={isButtonDisabled} onClick={() => setModalOpen(true)}>
+                  <button type="button" className="btn btn-danger btn-fw mr-1" disabled={isButtonDisabled} onClick={() => handleNewUnityClick()}>
                     {t("duplex-form.button-unity")}
                   </button>
 
@@ -150,6 +170,7 @@ export const DuplexForm = () => {
           </div>
         </div>
       </div>
+      <ErrorModal show={modalError.show} message={modalError.message} onClose={() => setModalError({ show: false, message: "" })} />
     </>
   );
 };

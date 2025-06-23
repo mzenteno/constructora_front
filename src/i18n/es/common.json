@@ -29,7 +29,13 @@
     "menu-expense-report" : "Reportes"
   },
   "util": {
-    "message-not-data": "No existen datos"
+    "date": "Fecha",
+    "message-not-data": "No existen datos",
+    "value-required": "Valor requerido",
+    "error-duplex-unity": "Debe ingresar 2 unidades",
+    "error-value-decimal": "Digite un valor numérico válido",
+    "error-value-email": "digite un correo electrónico válido",
+    "report-date-generation" : "Fecha de generación"
   },
   "button": {
     "login": "Iniciar sesión",
@@ -89,12 +95,14 @@
     "table-column-budgete" : "Presupuestado",
     "table-column-spent" : "Gastado",
     "table-column-real" : "Real",
+    "menu-spent-detail" : "Detalle gastado",
     "modal-sub-total-spent" : "Sub total",
     "modal-contractor" : "Honorarios contratista",
     "modal-total-to-date" : "Total to date",
     "modal-deposit1" : "1er depósito",
     "modal-deposit2" : "2do depósito",
-    "modal-balance-operate" : "Balance de operación"
+    "modal-balance-operate" : "Balance de operación",
+    "report-title" : "Reporte dúplex"
   },
   "expense-type-list": {
     "title": "Lista de tipos de gasto",
@@ -115,7 +123,6 @@
     "table-column-expense-type" : "Tipo de gasto",
     "table-search-expense-type" : "Buscar por tipo de gasto...",
     "report-title" : "Reporte de gastos",
-    "report-date-generation" : "Fecha de generación",
     "report-column-createAt" : "Fecha de creación",
     "report-column-description" : "Descripción",
     "report-column-expense-type" : "Tipo de gasto",
@@ -162,7 +169,6 @@
     "table-search-sold" : "Buscar por estado...",
     "table-search-supplier" : "Buscar por proveeor...",
     "report-title" : "Reporte de terrenos",
-    "report-date-generation" : "Fecha de generación",
     "report-column-code" : "Código",
     "report-column-sold" : "Estado",
     "report-column-supplier" : "Proveedor",
