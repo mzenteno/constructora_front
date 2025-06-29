@@ -1,5 +1,5 @@
-import { useState} from 'react';
-import { DuplexUnityBudgetItemService } from '@services/DuplexUnityBudgetItemService';
+import { useState } from "react";
+import { DuplexUnityBudgetItemService } from "@services/DuplexUnityBudgetItemService";
 
 export const UseDuplexUnityBudgetItem = () => {
   const [loading, setLoading] = useState(false);
@@ -11,18 +11,16 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const response = await DuplexUnityBudgetItemService.create({ 
+      const response = await DuplexUnityBudgetItemService.create({
         description: data.txtDescription,
         amount: data.txtAmount,
         expenseTypeId: parseInt(data.cboExpenseType, 10),
-        createAt: `${data.dpkCreateAt}T00:00:00Z`
-       });
+        createAt: `${data.dpkCreateAt}T00:00:00Z`,
+      });
       return response;
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -33,18 +31,16 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const response = await DuplexUnityBudgetItemService.update(id, { 
+      const response = await DuplexUnityBudgetItemService.update(id, {
         description: data.txtDescription,
         amount: data.txtAmount,
         expenseTypeId: parseInt(data.cboExpenseType, 10),
-        createAt: `${data.dpkCreateAt}T00:00:00Z`
-       });
+        createAt: `${data.dpkCreateAt}T00:00:00Z`,
+      });
       return response;
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -57,11 +53,9 @@ export const UseDuplexUnityBudgetItem = () => {
     try {
       const data = await DuplexUnityBudgetItemService.getAll(filter);
       setData(data);
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -79,7 +73,6 @@ export const UseDuplexUnityBudgetItem = () => {
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -92,11 +85,9 @@ export const UseDuplexUnityBudgetItem = () => {
     try {
       const response = await DuplexUnityBudgetItemService.updateByDuplex(duplexId, data);
       return response;
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -110,10 +101,10 @@ export const UseDuplexUnityBudgetItem = () => {
       const data = await DuplexUnityBudgetItemService.getByDuplexId(duplexId);
       setData(data);
 
+      return data;
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -122,13 +113,12 @@ export const UseDuplexUnityBudgetItem = () => {
   return {
     data,
     loading,
-    error,    
+    error,
     create,
     update,
     getAll,
     getById,
     updateByDuplex,
-    getByDuplexId
+    getByDuplexId,
   };
-
-}
+};

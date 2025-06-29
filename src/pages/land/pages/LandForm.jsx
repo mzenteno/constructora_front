@@ -69,21 +69,6 @@ export const LandForm = () => {
                   {errors.txtUbication && <div className="invalid-feedback d-block">{errors.txtUbication.message}</div>}
                 </div>
                 <div className="form-group">
-                  <label>{t("land-form.price")}</label>
-                  <input
-                    type="text"
-                    className={`form-control ${errors.txtPrice ? "is-invalid" : ""}`}
-                    {...register("txtPrice", {
-                      required: t("util.value-required"),
-                      pattern: {
-                        value: /^\d+(\.\d{1,2})?$/,
-                        message: t("util.error-value-decimal"),
-                      },
-                    })}
-                  />
-                  {errors.txtPrice && <div className="invalid-feedback d-block">{errors.txtPrice.message}</div>}
-                </div>
-                <div className="form-group">
                   <label>{t("land-form.description")}</label>
                   <input type="text" className="form-control" {...register("txtDescription")} />
                 </div>
@@ -104,6 +89,21 @@ export const LandForm = () => {
                     ))}
                   </select>
                   {errors.cboSupplier && <div className="invalid-feedback d-block">{errors.cboSupplier.message}</div>}
+                </div>
+                <div className="form-group">
+                  <label>{t("util.total")} ($)</label>
+                  <input
+                    type="text"
+                    className={`form-control ${errors.txtPrice ? "is-invalid" : ""}`}
+                    {...register("txtPrice", {
+                      required: t("util.value-required"),
+                      pattern: {
+                        value: /^\d+(\.\d{1,2})?$/,
+                        message: t("util.error-value-decimal"),
+                      },
+                    })}
+                  />
+                  {errors.txtPrice && <div className="invalid-feedback d-block">{errors.txtPrice.message}</div>}
                 </div>
                 <button type="submit" className="btn btn-primary btn-fw mr-1 mb-2">
                   {t("button.save")}

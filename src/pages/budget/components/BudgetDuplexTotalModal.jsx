@@ -106,27 +106,27 @@ export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
                 <div className="card-body">
                   <form onSubmit={onSubmit}>
                     <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-sub-total-spent")}</label>
+                      <label>{t("duplex-tracking-form.modal-sub-total-spent")} ($)</label>
                       <input type="number" className="form-control" value={formatDecimal(formData.subTotalSpent)} readOnly />
                     </div>
                     <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-contractor")}</label>
+                      <label>{t("duplex-tracking-form.modal-contractor")} ($)</label>
                       <input type="text" className="form-control" id="contractorsFee" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={formData.contractorsFee} onChange={handleInputChange} />
                     </div>
                     <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-total-to-date")}</label>
+                      <label>{t("duplex-tracking-form.modal-total-to-date")} ($)</label>
                       <input type="number" className="form-control" value={formatDecimal(formData.totalToDate)} readOnly />
                     </div>
                     <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-deposit1")}</label>
+                      <label>{t("duplex-tracking-form.modal-deposit1")} ($)</label>
                       <input type="text" className="form-control" id="deposit1" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={formData.deposit1} onChange={handleInputChange} />
                     </div>
                     <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-deposit2")}</label>
+                      <label>{t("duplex-tracking-form.modal-deposit2")} ($)</label>
                       <input type="text" className="form-control" id="deposit2" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={formData.deposit2} onChange={handleInputChange} />
                     </div>
                     <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-balance-operate")}</label>
+                      <label>{t("duplex-tracking-form.modal-balance-operate")} ($)</label>
                       <input type="number" className="form-control" value={formatDecimal(formData.total)} readOnly />
                     </div>
                     <button type="submit" className="btn btn-primary btn-fw mr-1 mt-4">

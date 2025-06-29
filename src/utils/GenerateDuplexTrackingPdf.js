@@ -1,6 +1,6 @@
 import pdfMake from "@utils/pdfmake";
 
-export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
+export const GenerateDuplexTrackingPdf = async ({ t, dataBudget, dataDuplex }) => {
   const currentDate = new Date().toLocaleDateString("es-BO", {
     year: "numeric",
     month: "2-digit",
@@ -41,9 +41,9 @@ export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
       { text: t("duplex-tracking-form.table-column-payitem"), bold: true },
       { text: t("duplex-tracking-form.table-column-description"), bold: true },
       { text: t("duplex-tracking-form.table-column-unit"), bold: true },
-      { text: `${t("duplex-tracking-form.table-column-budgete")}($)`, bold: true },
-      { text: `${t("duplex-tracking-form.table-column-spent")}($)`, bold: true },
-      { text: `${t("duplex-tracking-form.table-column-real")}($)`, bold: true },
+      { text: t("duplex-tracking-form.table-column-budgete"), bold: true },
+      { text: t("duplex-tracking-form.table-column-spent"), bold: true },
+      { text: t("duplex-tracking-form.table-column-real"), bold: true },
     ];
 
     const tableBody = [headerRow];
@@ -93,19 +93,19 @@ export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
     tableBody.push([{ text: "A", colSpan: 6, fillColor: "#bfbfbf", color: "#bfbfbf" }]);
 
     tableBody.push([
-      { text: "SUBTOTAL ($)", bold: true, colSpan: 3, alignment: "right", fillColor: "#ffff00" },
+      { text: "SUBTOTAL", bold: true, colSpan: 3, alignment: "right", fillColor: "#ffff00" },
       { text: "", fillColor: "#ffff00" },
       { text: "", fillColor: "#ffff00" },
       { text: totalBudgete.toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
       { text: Number(dataDuplex.subTotalSpent).toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
       { text: totalReal.toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
     ]);
-    tableBody.push(pushTotalRow("CONTRACTORS'S FEE ($)", Number(dataDuplex.contractorsFee), "#00b0f0"));
-    tableBody.push(pushTotalRow("TOTAL TO DATE ($)", totalToDate, "#00b050"));
-    tableBody.push(pushTotalRow("1st DEPOSIT ($)", Number(dataDuplex.deposit1)));
-    tableBody.push(pushTotalRow("2nd DEPOSIT ($)", Number(dataDuplex.deposit2)));
-    tableBody.push(pushTotalRow("TOTAL DEPOSIT ($)", totalDeposit));
-    tableBody.push(pushTotalRow("BALANCE TO OPERATE ($)", totalToDate - totalDeposit, null, "#ff0000"));
+    tableBody.push(pushTotalRow("CONTRACTORS'S FEE", Number(dataDuplex.contractorsFee), "#00b0f0"));
+    tableBody.push(pushTotalRow("TOTAL TO DATE", totalToDate, "#00b050"));
+    tableBody.push(pushTotalRow("1st DEPOSIT", Number(dataDuplex.deposit1)));
+    tableBody.push(pushTotalRow("2nd DEPOSIT", Number(dataDuplex.deposit2)));
+    tableBody.push(pushTotalRow("TOTAL DEPOSIT", totalDeposit));
+    tableBody.push(pushTotalRow("BALANCE TO OPERATE", totalToDate - totalDeposit, null, "#ff0000"));
 
     const docDefinition = {
       content: [

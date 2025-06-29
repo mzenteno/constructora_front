@@ -37,7 +37,7 @@ export const BudgetAmountDuplexBudgeteModal = ({ show, onClose, onSave, form, se
               <div className="card">
                 <div className="card-body">
                   <div className="form-group mb-3 mt-3">
-                    <label>{t("duplex-tracking-form.table-column-budgete")}</label>
+                    <label>{t("util.total")} ($)</label>
                     <input type="text" className={`form-control ${error ? "is-invalid" : ""}`} value={form.budgete} onChange={(e) => setForm({ ...form, budgete: e.target.value })} />
                     {error && <div className="invalid-feedback d-block">{error}</div>}
                   </div>

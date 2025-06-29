@@ -109,7 +109,7 @@ export const Expense = () => {
 
     autoTable(doc, {
       startY: 35,
-      head: [[t("expense-list.report-column-createAt"), t("expense-list.report-column-expense-type"), t("expense-list.report-column-description"), t("expense-list.report-column-amount")]],
+      head: [[t("expense-list.report-column-createAt"), t("expense-list.report-column-expense-type"), t("expense-list.report-column-description"), `${t("util.total")} ($)`]],
       body: tableData,
       styles: { fontSize: 9 },
       headStyles: {
@@ -117,11 +117,15 @@ export const Expense = () => {
         textColor: [255, 255, 255],
         fontStyle: "bold",
       },
-      foot: [["", "", "Total:", total.toFixed(2)]],
+      columnStyles: {
+        3: { halign: "right" },
+      },
+      foot: [["", "", "Total ($):", total.toFixed(2)]],
       footStyles: {
         fillColor: [240, 240, 240],
         textColor: [0, 0, 0],
         fontStyle: "bold",
+        halign: "right",
       },
     });
 
@@ -133,12 +137,9 @@ export const Expense = () => {
     const worksheet = workbook.addWorksheet(t("expense-list.report-title"));
 
     // Encabezados
-    worksheet.addRow([
-      t("expense-list.report-column-createAt"),
-      t("expense-list.report-column-expense-type"),
-      t("expense-list.report-column-description"),
-      t("expense-list.report-column-amount"),
-    ]).font = { bold: true };
+    worksheet.addRow([t("expense-list.report-column-createAt"), t("expense-list.report-column-expense-type"), t("expense-list.report-column-description"), `${t("util.total")} ($)`]).font = {
+      bold: true,
+    };
 
     // Datos
     dataExpense.forEach((item) => {
@@ -147,7 +148,7 @@ export const Expense = () => {
 
     // Total
     const total = dataExpense.reduce((acc, curr) => acc + Number(curr.amount), 0);
-    const totalRow = worksheet.addRow(["", "", "Total:", total.toFixed(2)]);
+    const totalRow = worksheet.addRow(["", "", "Total ($):", total.toFixed(2)]);
     totalRow.getCell(4).font = { bold: true };
 
     // Ajustar ancho de columnas automáticamente
@@ -203,7 +204,7 @@ export const Expense = () => {
                     <th> {t("expense-list.table-column-createAt")}</th>
                     <th> {t("expense-list.table-column-expense-type")} </th>
                     <th> {t("expense-list.table-column-description")} </th>
-                    <th> {t("expense-list.table-column-amount")} </th>
+                    <th> {t("util.total")} ($)</th>
                   </tr>
                   <tr>
                     <th> </th>
@@ -266,7 +267,7 @@ export const Expense = () => {
                 <tfoot>
                   <tr>
                     <td colSpan="4" style={{ textAlign: "right", fontWeight: "bold" }}>
-                      Total:
+                      Total ($):
                     </td>
                     <td style={{ textAlign: "right", fontWeight: "bold" }}>{totalAmount.toFixed(2)}</td>
                   </tr>

@@ -10,6 +10,7 @@ import { Duplex } from "@pages/budget/pages/Duplex";
 import { DuplexForm } from "@pages/budget/pages/DuplexForm";
 import { DuplexTracking } from "@pages/budget/pages/DuplexTracking";
 import { DuplexTrackingForm } from "@pages/budget/pages/DuplexTrackingForm";
+import { DuplexTrackingReport } from "@pages/budget/pages/DuplexTrackingReport";
 import { ExpenseType } from "@pages/expense/pages/ExpenseType";
 import { ExpenseTypeForm } from "@pages/expense/pages/ExpenseTypeForm";
 import { Expense } from "@pages/expense/pages/Expense";
@@ -41,6 +42,7 @@ export const AppRouter = () => {
 
             <Route path="/duplex-tracking" element={<DuplexTracking />} />
             <Route path="/duplex-tracking-form/:id" element={<DuplexTrackingForm />} />
+            <Route path="/duplex-tracking-report" element={<DuplexTrackingReport />} />
 
             <Route path="/expense-type" element={<ExpenseType />} />
             <Route path="/expense-type-form" element={<ExpenseTypeForm />} />

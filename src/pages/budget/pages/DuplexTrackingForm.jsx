@@ -39,7 +39,7 @@ export const DuplexTrackingForm = () => {
     }
   };
 
-  const handleUpdateClick = (e, idItem, type) => {
+  const handleUpdateClick = (e, idItem, type, budgetItem) => {
     e.preventDefault();
 
     switch (type) {
@@ -56,7 +56,7 @@ export const DuplexTrackingForm = () => {
         setTotalModalOpen(true);
         break;
       case "SpentDetail":
-        setItemForm({ duplexId: id, budgetItemId: idItem });
+        setItemForm({ duplexId: id, budgetItemId: idItem, duplexCode: dataDuplex.code, duplexDescription: dataDuplex.description, budgetItem: budgetItem });
         setSpentDetailModalOpen(true);
         break;
 
@@ -122,9 +122,9 @@ export const DuplexTrackingForm = () => {
                     <th> {t("duplex-tracking-form.table-column-payitem")} </th>
                     <th> {t("duplex-tracking-form.table-column-description")} </th>
                     <th> {t("duplex-tracking-form.table-column-unit")} </th>
-                    <th> {t("duplex-tracking-form.table-column-budgete")} </th>
-                    <th> {t("duplex-tracking-form.table-column-spent")} </th>
-                    <th> {t("duplex-tracking-form.table-column-real")} </th>
+                    <th> {t("duplex-tracking-form.table-column-budgete")} ($) </th>
+                    <th> {t("duplex-tracking-form.table-column-spent")} ($) </th>
+                    <th> {t("duplex-tracking-form.table-column-real")} ($) </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -170,7 +170,7 @@ export const DuplexTrackingForm = () => {
                                           </div>
                                         </a>
                                         <div className="dropdown-divider"></div>
-                                        <a className="dropdown-item preview-item" onClick={(e) => handleUpdateClick(e, child.budgetItem.id, "SpentDetail")}>
+                                        <a className="dropdown-item preview-item" onClick={(e) => handleUpdateClick(e, child.budgetItem.id, "SpentDetail", child.budgetItem.descriptionEn)}>
                                           <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                             <h6 className="preview-subject font-weight-normal mb-1">{t("duplex-tracking-form.menu-spent-detail")}</h6>
                                           </div>

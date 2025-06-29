@@ -107,7 +107,7 @@ export const Land = () => {
           t("land-list.report-column-supplier"),
           t("land-list.report-column-ubication"),
           t("land-list.report-column-description"),
-          t("land-list.report-column-price"),
+          `${t("land-list.report-column-price")} ($)`,
         ],
       ],
       body: tableData,
@@ -117,7 +117,7 @@ export const Land = () => {
         textColor: [255, 255, 255],
         fontStyle: "bold",
       },
-      foot: [["", "", "", "", "Total:", total.toFixed(2)]],
+      foot: [["", "", "", "", "Total ($):", total.toFixed(2)]],
       footStyles: {
         fillColor: [240, 240, 240],
         textColor: [0, 0, 0],
@@ -157,7 +157,7 @@ export const Land = () => {
       t("land-list.report-column-supplier"),
       t("land-list.report-column-ubication"),
       t("land-list.report-column-description"),
-      t("land-list.report-column-price"),
+      `${t("land-list.report-column-price")} ($)`,
     ]);
 
     // Datos
@@ -167,7 +167,7 @@ export const Land = () => {
 
     // Total
     const total = dataLand.reduce((acc, curr) => acc + Number(curr.price), 0);
-    worksheet.addRow(["", "", "", "", "Total:", total.toFixed(2)]);
+    worksheet.addRow(["", "", "", "", "Total ($):", total.toFixed(2)]);
 
     // Estilos de encabezados
     worksheet.getRow(4).font = { bold: true };
@@ -231,7 +231,7 @@ export const Land = () => {
                     <th> {t("land-list.table-column-sold")} </th>
                     <th> {t("land-list.table-column-supplier")} </th>
                     <th> {t("land-list.table-column-ubication")} </th>
-                    <th> {t("land-list.table-column-price")} </th>
+                    <th> {t("util.total")} ($) </th>
                   </tr>
                   <tr>
                     <th> </th>
@@ -295,7 +295,7 @@ export const Land = () => {
                 <tfoot>
                   <tr>
                     <td colSpan="5" style={{ textAlign: "right", fontWeight: "bold" }}>
-                      Total:
+                      Total ($):
                     </td>
                     <td style={{ textAlign: "right", fontWeight: "bold" }}>{totalAmount.toFixed(2)}</td>
                   </tr>

@@ -69,7 +69,7 @@ export const ExpenseForm = () => {
                         {type.description}
                       </option>
                     ))}
-                  </select>
+                   </select>
                   {errors.cboExpenseType && <div className="invalid-feedback d-block">{errors.cboExpenseType.message}</div>}
                 </div>
                 <div className="form-group">
@@ -77,7 +77,7 @@ export const ExpenseForm = () => {
                   <input type="text" className="form-control" {...register("txtDescription")} />
                 </div>
                 <div className="form-group">
-                  <label>{t("expense-form.amount")}</label>
+                  <label>{t("util.total")} ($)</label>
                   <input
                     type="text"
                     className={`form-control ${errors.txtAmount ? "is-invalid" : ""}`}

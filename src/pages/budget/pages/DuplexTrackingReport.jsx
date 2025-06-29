@@ -1,13 +1,45 @@
+import { useEffect } from "react";
 import pdfMake from "@utils/pdfmake";
+import { useI18n } from "@store/I18nContext";
+import { Title } from "@utils/Title";
+import { UseDuplex } from "@hooks/UseDuplex";
+import { UseDuplexUnityBudgetItem } from "@hooks/UseDuplexUnityBudgetItem";
+import { Loading } from "@utils/Loading";
 
-export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
+export const DuplexTrackingReport = () => {
+  const { t } = useI18n();
+  const { loading: loadingBudget, error: errorBudget, getByDuplexId } = UseDuplexUnityBudgetItem();
+  const { loading: loadingDuplexById, error: errorDuplexById, getById } = UseDuplex();
+  const { loading: loadingDuplexAll, error: errorDuplexAll, data: dataDuplexAll, getAll } = UseDuplex();
   const currentDate = new Date().toLocaleDateString("es-BO", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   });
 
-  const handleDownloadPDF = async () => {
+  useEffect(() => {
+    getAll();
+  }, []);
+
+  const fetchData = async (dupĺexId) => {
+    try {
+      const [dataDuplex, dataBudget] = await Promise.all([getById(dupĺexId), getByDuplexId(dupĺexId)]);
+
+      handleDownloadPDF(dataDuplex, dataBudget);
+    } catch (error) {
+      console.error("Error en una de las llamadas", error);
+    }
+  };
+
+  const generate = async (e, duplexId) => {
+    if (duplexId === "") return;
+
+    e.preventDefault();
+
+    await fetchData(duplexId);
+  };
+
+  const handleDownloadPDF = async (dataDuplex, dataBudget) => {
     if (!dataBudget || dataBudget.length === 0) return;
 
     let totalToDate = Number(dataDuplex.subTotalSpent) + Number(dataDuplex.contractorsFee);
@@ -41,9 +73,9 @@ export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
       { text: t("duplex-tracking-form.table-column-payitem"), bold: true },
       { text: t("duplex-tracking-form.table-column-description"), bold: true },
       { text: t("duplex-tracking-form.table-column-unit"), bold: true },
-      { text: `${t("duplex-tracking-form.table-column-budgete")}($)`, bold: true },
-      { text: `${t("duplex-tracking-form.table-column-spent")}($)`, bold: true },
-      { text: `${t("duplex-tracking-form.table-column-real")}($)`, bold: true },
+      { text: t("duplex-tracking-form.table-column-budgete"), bold: true },
+      { text: t("duplex-tracking-form.table-column-spent"), bold: true },
+      { text: t("duplex-tracking-form.table-column-real"), bold: true },
     ];
 
     const tableBody = [headerRow];
@@ -93,19 +125,19 @@ export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
     tableBody.push([{ text: "A", colSpan: 6, fillColor: "#bfbfbf", color: "#bfbfbf" }]);
 
     tableBody.push([
-      { text: "SUBTOTAL ($)", bold: true, colSpan: 3, alignment: "right", fillColor: "#ffff00" },
+      { text: "SUBTOTAL", bold: true, colSpan: 3, alignment: "right", fillColor: "#ffff00" },
       { text: "", fillColor: "#ffff00" },
       { text: "", fillColor: "#ffff00" },
       { text: totalBudgete.toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
       { text: Number(dataDuplex.subTotalSpent).toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
       { text: totalReal.toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
     ]);
-    tableBody.push(pushTotalRow("CONTRACTORS'S FEE ($)", Number(dataDuplex.contractorsFee), "#00b0f0"));
-    tableBody.push(pushTotalRow("TOTAL TO DATE ($)", totalToDate, "#00b050"));
-    tableBody.push(pushTotalRow("1st DEPOSIT ($)", Number(dataDuplex.deposit1)));
-    tableBody.push(pushTotalRow("2nd DEPOSIT ($)", Number(dataDuplex.deposit2)));
-    tableBody.push(pushTotalRow("TOTAL DEPOSIT ($)", totalDeposit));
-    tableBody.push(pushTotalRow("BALANCE TO OPERATE ($)", totalToDate - totalDeposit, null, "#ff0000"));
+    tableBody.push(pushTotalRow("CONTRACTORS'S FEE", Number(dataDuplex.contractorsFee), "#00b0f0"));
+    tableBody.push(pushTotalRow("TOTAL TO DATE", totalToDate, "#00b050"));
+    tableBody.push(pushTotalRow("1st DEPOSIT", Number(dataDuplex.deposit1)));
+    tableBody.push(pushTotalRow("2nd DEPOSIT", Number(dataDuplex.deposit2)));
+    tableBody.push(pushTotalRow("TOTAL DEPOSIT", totalDeposit));
+    tableBody.push(pushTotalRow("BALANCE TO OPERATE", totalToDate - totalDeposit, null, "#ff0000"));
 
     const docDefinition = {
       content: [
@@ -149,9 +181,41 @@ export const DuplexTrackingPdf = ({ t, dataBudget, dataDuplex }) => {
     pdfMake.createPdf(docDefinition).download("project-budget.pdf");
   };
 
+  if (loadingBudget || loadingDuplexAll || loadingDuplexById) return <Loading />;
+  if (errorBudget || errorDuplexById || errorDuplexAll) return <p>Error: {errorBudget}</p>;
+
   return (
-    <a className="dropdown-item" onClick={handleDownloadPDF}>
-      pdf...
-    </a>
+    <>
+      <Title title={t("duplex-tracking.title")} />
+      <div className="row">
+        <div className="col-12 grid-margin stretch-card">
+          <div className="card">
+            <div className="card-body">
+              <div className="form-group">
+                <label>Dúplex</label>
+                <select id="cboDuplex" className="form-control">
+                  <option value=""></option>
+                  {dataDuplexAll.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.code} - {item.description}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary btn-fw mr-1 mb-2"
+                onClick={(e) => {
+                  const selectedId = document.getElementById("cboDuplex").value;
+                  generate(e, selectedId);
+                }}>
+                {t("button.accept")}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

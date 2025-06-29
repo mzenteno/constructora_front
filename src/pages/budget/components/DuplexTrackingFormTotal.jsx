@@ -11,7 +11,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#ffff00" }}>
-          SUBTOTAL
+          SUBTOTAL ($)
         </td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}></td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}>{subTotal}</td>
@@ -19,7 +19,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#00b0f0" }}>
-          CONTRACTORS'S FEE
+          CONTRACTORS'S FEE ($)
         </td>
         <td style={{ textAlign: "right", backgroundColor: "#00b0f0" }}></td>
         <td style={{ textAlign: "right", backgroundColor: "#00b0f0" }}>{contractorsFee}</td>
@@ -27,7 +27,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#00b050" }}>
-          TOTAL TO DATE
+          TOTAL TO DATE ($)
         </td>
         <td style={{ textAlign: "right", backgroundColor: "#00b050" }}></td>
         <td style={{ textAlign: "right", backgroundColor: "#00b050" }}>{Number(totalToDate).toFixed(2)}</td>
@@ -35,7 +35,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right" }}>
-          1st DEPOSIT
+          1st DEPOSIT ($)
         </td>
         <td></td>
         <td style={{ textAlign: "right" }}>{deposit1}</td>
@@ -43,7 +43,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right" }}>
-          2nd DEPOSIT
+          2nd DEPOSIT ($)
         </td>
         <td></td>
         <td style={{ textAlign: "right" }}>{deposit2}</td>
@@ -51,7 +51,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right" }}>
-          BALANCE TO OPERATE
+          BALANCE TO OPERATE ($)
         </td>
         <td></td>
         <td style={{ textAlign: "right", color: "red" }}>{Number(total).toFixed(2)}</td>
