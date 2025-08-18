@@ -39,6 +39,7 @@ export const UseBudgetItem = () => {
         descriptionEn: data.descriptionEn,
         descriptionEs: data.descriptionEs,
         unit: data.unit,
+        typeItem: data.typeItem,
         orderItem: data.orderItem,
       });
       return response;

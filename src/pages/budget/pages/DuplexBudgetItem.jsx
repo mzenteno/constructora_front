@@ -41,6 +41,7 @@ export const DuplexBudgetItem = () => {
         descriptionEn: itemForm.description,
         descriptionEs: itemForm.description,
         unit: itemForm.unit,
+        typeItem: itemForm.typeItem,
         orderItem: Number(itemForm.orderItem),
       });
     } else {
