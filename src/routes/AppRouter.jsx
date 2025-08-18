@@ -7,6 +7,7 @@ import { Dashboard } from "@pages/dashboard/Dashboard";
 import { Users } from "@pages/auth/pages/Users";
 import { UsersForm } from "@pages/auth/pages/UsersForm";
 import { Duplex } from "@pages/budget/pages/Duplex";
+import { DuplexBudgetItem } from "@pages/budget/pages/DuplexBudgetItem";
 import { DuplexForm } from "@pages/budget/pages/DuplexForm";
 import { DuplexTracking } from "@pages/budget/pages/DuplexTracking";
 import { DuplexTrackingForm } from "@pages/budget/pages/DuplexTrackingForm";
@@ -37,6 +38,7 @@ export const AppRouter = () => {
             <Route path="/user-form/:id" element={<UsersForm />} />
 
             <Route path="/duplex" element={<Duplex />} />
+            <Route path="/duplex-configuration" element={<DuplexBudgetItem />} />
             <Route path="/duplex-form" element={<DuplexForm />} />
             <Route path="/duplex-form/:id" element={<DuplexForm />} />
 

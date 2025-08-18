@@ -45,6 +45,7 @@ export const Duplex = () => {
                   <tr>
                     <th style={{ width: "20px" }}> </th>
                     <th> {t("duplex-list.table-column-code")} </th>
+                    <th> {t("duplex-list.table-column-client")} </th>
                     <th> {t("duplex-list.table-column-description")} </th>
                     <th> {t("duplex-list.table-column-address")} </th>
                   </tr>
@@ -58,6 +59,7 @@ export const Duplex = () => {
                           <DeleteIcon width={21} height={21} style={{ cursor: "pointer" }} />
                         </td>
                         <td>{duplex.code}</td>
+                        <td>{duplex.client}</td>
                         <td>{duplex.description}</td>
                         <td>{duplex.address}</td>
                       </tr>

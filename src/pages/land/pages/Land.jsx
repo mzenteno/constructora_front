@@ -6,11 +6,9 @@ import { UseLand } from "@hooks/UseLand";
 import { UseSupplier } from "@hooks/UseSupplier";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { DeleteIcon } from "@assets/icons/DeleteIcon";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-import ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
 import { Loading } from "@utils/Loading";
+import { GenerateLandReportPdf } from "@utils/reports/LandReportPdf";
+import { GenerateLandReportExcel } from "@utils/reports/LandReportExcel";
 
 export const Land = () => {
   const isFirstLoad = useRef(true);
@@ -79,119 +77,11 @@ export const Land = () => {
   };
 
   const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString();
-
-    // Opción: Logo en la parte superior izquierda
-    // if (logoBase64) {
-    //   doc.addImage(logoBase64, "PNG", 14, 10, 20, 20);
-    // }
-
-    doc.setFontSize(16);
-    doc.text(t("land-list.report-title"), 15, 20);
-    doc.setFontSize(10);
-    doc.text(`${t("util.report-date-generation")}: ${formattedDate}`, 15, 26);
-
-    const tableData = dataLand.map((item) => [item.code, item.sold, item.supplier.fullName, item.ubication, item.description, Number(item.price).toFixed(2)]);
-
-    const total = dataLand.reduce((acc, curr) => acc + Number(curr.price), 0);
-
-    autoTable(doc, {
-      startY: 35,
-      head: [
-        [
-          t("land-list.report-column-code"),
-          t("land-list.report-column-sold"),
-          t("land-list.report-column-supplier"),
-          t("land-list.report-column-ubication"),
-          t("land-list.report-column-description"),
-          `${t("land-list.report-column-price")} ($)`,
-        ],
-      ],
-      body: tableData,
-      styles: { fontSize: 9 },
-      headStyles: {
-        fillColor: [142, 148, 169],
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-      },
-      foot: [["", "", "", "", "Total ($):", total.toFixed(2)]],
-      footStyles: {
-        fillColor: [240, 240, 240],
-        textColor: [0, 0, 0],
-        fontStyle: "bold",
-      },
-    });
-
-    doc.save("report.pdf");
+    GenerateLandReportPdf(dataLand, t);
   };
 
   const handleDownloadExcel = async () => {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet(t("land-list.report-title"));
-
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString();
-
-    // Encabezado título
-    worksheet.mergeCells("A1:F1");
-    worksheet.getCell("A1").value = t("land-list.report-title");
-    worksheet.getCell("A1").font = { size: 16, bold: true };
-    worksheet.getCell("A1").alignment = { horizontal: "center" };
-
-    // Fecha de generación
-    worksheet.mergeCells("A2:D2");
-    worksheet.getCell("A2").value = `${t("util.report-date-generation")}: ${formattedDate}`;
-    worksheet.getCell("A2").font = { size: 10 };
-    worksheet.getCell("A2").alignment = { horizontal: "left" };
-
-    // Espacio antes de tabla
-    worksheet.addRow([]);
-
-    // Encabezados de tabla
-    worksheet.addRow([
-      t("land-list.report-column-code"),
-      t("land-list.report-column-sold"),
-      t("land-list.report-column-supplier"),
-      t("land-list.report-column-ubication"),
-      t("land-list.report-column-description"),
-      `${t("land-list.report-column-price")} ($)`,
-    ]);
-
-    // Datos
-    dataLand.forEach((item) => {
-      worksheet.addRow([item.code, item.sold ? "Vendido" : "Disponible", item.supplier.fullName, item.ubication, item.description, Number(item.price).toFixed(2)]);
-    });
-
-    // Total
-    const total = dataLand.reduce((acc, curr) => acc + Number(curr.price), 0);
-    worksheet.addRow(["", "", "", "", "Total ($):", total.toFixed(2)]);
-
-    // Estilos de encabezados
-    worksheet.getRow(4).font = { bold: true };
-    worksheet.getRow(4).alignment = { horizontal: "center" };
-
-    // Estilo de total
-    const lastRow = worksheet.lastRow;
-    lastRow.font = { bold: true };
-    lastRow.eachCell((cell) => {
-      cell.fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: "F0F0F0" },
-      };
-    });
-
-    // Ajustar ancho de columnas
-    worksheet.columns.forEach((column) => {
-      column.width = 20;
-    });
-
-    // Generar archivo
-    const buffer = await workbook.xlsx.writeBuffer();
-    saveAs(new Blob([buffer]), "reporte_gastos.xlsx");
+    GenerateLandReportExcel(dataLand, t);
   };
 
   if (loadingLand || loadingSupplier) return <Loading />;
@@ -230,6 +120,7 @@ export const Land = () => {
                     <th> {t("land-list.table-column-code")} </th>
                     <th> {t("land-list.table-column-sold")} </th>
                     <th> {t("land-list.table-column-supplier")} </th>
+                    <th> {t("land-list.table-column-zip-code")} </th>
                     <th> {t("land-list.table-column-ubication")} </th>
                     <th> {t("util.total")} ($) </th>
                   </tr>
@@ -280,6 +171,7 @@ export const Land = () => {
                         <td>{land.code}</td>
                         <td>{land.sold ? "Vendido" : "Disponible"}</td>
                         <td>{land.supplier.fullName}</td>
+                        <td>{land.zipCode}</td>
                         <td>{land.ubication}</td>
                         <td style={{ textAlign: "right" }}>{land.price}</td>
                       </tr>

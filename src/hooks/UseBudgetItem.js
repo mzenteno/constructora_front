@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { LandService } from "@services/LandService";
+import { BudgetItemService } from "@services/BudgetItemService";
 
-export const UseLand = () => {
+export const UseBudgetItem = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,14 +11,14 @@ export const UseLand = () => {
     setError(null);
 
     try {
-      const response = await LandService.create({
-        code: data.txtCode,
-        ubication: data.txtUbication,
-        price: parseInt(data.txtPrice, 10),
-        description: data.txtDescription,
-        sold: Boolean(parseInt(data.cboSold, 10)),
-        supplierId: parseInt(data.cboSupplier, 10),
-        zipCode: data.txtZipCode,
+      const response = await BudgetItemService.create({
+        code: data.code,
+        descriptionEn: data.descriptionEn,
+        descriptionEs: data.descriptionEs,
+        unit: data.unit,
+        typeItem: data.typeItem,
+        orderItem: data.orderItem,
+        parentId: data.parentId,
       });
       return response;
     } catch (err) {
@@ -34,14 +34,12 @@ export const UseLand = () => {
     setError(null);
 
     try {
-      const response = await LandService.update(id, {
-        code: data.txtCode,
-        ubication: data.txtUbication,
-        price: parseInt(data.txtPrice, 10),
-        description: data.txtDescription,
-        sold: Boolean(parseInt(data.cboSold, 10)),
-        supplierId: parseInt(data.cboSupplier, 10),
-        zipCode: data.txtZipCode,
+      const response = await BudgetItemService.update(id, {
+        code: data.code,
+        descriptionEn: data.descriptionEn,
+        descriptionEs: data.descriptionEs,
+        unit: data.unit,
+        orderItem: data.orderItem,
       });
       return response;
     } catch (err) {
@@ -52,13 +50,30 @@ export const UseLand = () => {
     }
   };
 
-  const getAll = async (filter = {}) => {
+  const remove = async (id) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await LandService.getAll(filter);
+      const response = await BudgetItemService.remove(id);
+      return response;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getAll = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await BudgetItemService.getAll();
       setData(data);
+
+      return data;
     } catch (err) {
       setError(err.message);
       throw err;
@@ -72,7 +87,7 @@ export const UseLand = () => {
     setError(null);
 
     try {
-      const data = await LandService.getById(id);
+      const data = await BudgetItemService.getById(id);
       setData(data);
 
       return data;
@@ -90,6 +105,7 @@ export const UseLand = () => {
     error,
     create,
     update,
+    remove,
     getAll,
     getById,
   };

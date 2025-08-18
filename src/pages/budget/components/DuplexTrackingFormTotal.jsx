@@ -1,5 +1,5 @@
-export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, deposit2 }) => {
-  const totalToDate = Number(subTotal) + Number(contractorsFee);
+export const DuplexTrackingFormTotal = ({ subTotal, deposit1, deposit2 }) => {
+  const totalToDate = Number(subTotal);
   const total = Number(totalToDate) - Number(deposit1) - Number(deposit2);
 
   return (
@@ -16,14 +16,6 @@ export const DuplexTrackingFormTotal = ({ subTotal, contractorsFee, deposit1, de
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}></td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}>{subTotal}</td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}></td>
-      </tr>
-      <tr>
-        <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#00b0f0" }}>
-          CONTRACTORS'S FEE ($)
-        </td>
-        <td style={{ textAlign: "right", backgroundColor: "#00b0f0" }}></td>
-        <td style={{ textAlign: "right", backgroundColor: "#00b0f0" }}>{contractorsFee}</td>
-        <td style={{ textAlign: "right", backgroundColor: "#00b0f0" }}></td>
       </tr>
       <tr>
         <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#00b050" }}>

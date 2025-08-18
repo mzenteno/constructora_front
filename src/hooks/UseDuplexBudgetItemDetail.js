@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { DuplexUnityBudgetItemDetailService } from "@services/DuplexUnityBudgetItemDetailService";
+import { DuplexBudgetItemDetailService } from "@services/DuplexBudgetItemDetailService";
 
-export const UseDuplexUnityBudgetItemDetail = () => {
+export const UseDuplexBudgetItemDetail = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ export const UseDuplexUnityBudgetItemDetail = () => {
     setError(null);
 
     try {
-      const data = await DuplexUnityBudgetItemDetailService.getByDuplexIdBudgetItemId(duplexId, budgetItemId);
+      const data = await DuplexBudgetItemDetailService.getByDuplexIdBudgetItemId(duplexId, budgetItemId);
       setData(data);
     } catch (err) {
       setError(err.message);

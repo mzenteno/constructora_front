@@ -33,6 +33,7 @@ export const SideBar = () => {
 
         <SideBarItem title={t("sidebar.menu-budget")} hasSubItem href="ui-presupuesto" IconComponent={HouseMenuIcon}>
           <SideBarItemMenu id="ui-presupuesto">
+            <SideBarItemSubMenu title={t("sidebar.menu-budget-config")} path="/duplex-configuration" />
             <SideBarItemSubMenu title={t("sidebar.menu-budget-duplex")} path="/duplex" />
             <SideBarItemSubMenu title={t("sidebar.menu-budget-tracking")} path="/duplex-tracking" />
             <SideBarItemSubMenu title={t("sidebar.menu-budget-report")} path="/duplex-tracking-report" />

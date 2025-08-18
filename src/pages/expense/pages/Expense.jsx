@@ -6,12 +6,10 @@ import { UseExpense } from "@hooks/UseExpense";
 import { UseExpenseType } from "@hooks/UseExpenseType";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { DeleteIcon } from "@assets/icons/DeleteIcon";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-import ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
 import DateRangeFilter from "@utils/DateRangeFilter";
 import { Loading } from "@utils/Loading";
+import { GenerateExpenseReportExcel } from "@utils/reports/ExpenseReportExcel";
+import { GenerateExpenseReportPdf } from "@utils/reports/ExpenseReportPdf";
 
 export const Expense = () => {
   const isFirstLoad = useRef(true);
@@ -93,79 +91,11 @@ export const Expense = () => {
   };
 
   const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString();
-
-    doc.setFontSize(16);
-    doc.text(t("expense-list.report-title"), 15, 20);
-    doc.setFontSize(10);
-    doc.text(`${t("util.report-date-generation")}: ${formattedDate}`, 15, 26);
-
-    const tableData = dataExpense.map((item) => [item.createAt, item.expenseType.description, item.description, Number(item.amount).toFixed(2)]);
-
-    const total = dataExpense.reduce((acc, curr) => acc + Number(curr.amount), 0);
-
-    autoTable(doc, {
-      startY: 35,
-      head: [[t("expense-list.report-column-createAt"), t("expense-list.report-column-expense-type"), t("expense-list.report-column-description"), `${t("util.total")} ($)`]],
-      body: tableData,
-      styles: { fontSize: 9 },
-      headStyles: {
-        fillColor: [142, 148, 169],
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-      },
-      columnStyles: {
-        3: { halign: "right" },
-      },
-      foot: [["", "", "Total ($):", total.toFixed(2)]],
-      footStyles: {
-        fillColor: [240, 240, 240],
-        textColor: [0, 0, 0],
-        fontStyle: "bold",
-        halign: "right",
-      },
-    });
-
-    doc.save("report.pdf");
+    GenerateExpenseReportPdf(dataExpense, t);
   };
 
   const handleDownloadExcel = async () => {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet(t("expense-list.report-title"));
-
-    // Encabezados
-    worksheet.addRow([t("expense-list.report-column-createAt"), t("expense-list.report-column-expense-type"), t("expense-list.report-column-description"), `${t("util.total")} ($)`]).font = {
-      bold: true,
-    };
-
-    // Datos
-    dataExpense.forEach((item) => {
-      worksheet.addRow([item.createAt, item.expenseType.description, item.description, Number(item.amount).toFixed(2)]);
-    });
-
-    // Total
-    const total = dataExpense.reduce((acc, curr) => acc + Number(curr.amount), 0);
-    const totalRow = worksheet.addRow(["", "", "Total ($):", total.toFixed(2)]);
-    totalRow.getCell(4).font = { bold: true };
-
-    // Ajustar ancho de columnas automáticamente
-    worksheet.columns.forEach((column) => {
-      let maxLength = 0;
-      column.eachCell({ includeEmpty: true }, (cell) => {
-        const columnLength = cell.value ? cell.value.toString().length : 10;
-        if (columnLength > maxLength) {
-          maxLength = columnLength;
-        }
-      });
-      column.width = maxLength < 15 ? 15 : maxLength;
-    });
-
-    // Guardar archivo
-    const buffer = await workbook.xlsx.writeBuffer();
-    saveAs(new Blob([buffer]), "report.xlsx");
+    GenerateExpenseReportExcel(dataExpense, t);
   };
 
   if (loadingExpense || loadingExpenseType) return <Loading />;

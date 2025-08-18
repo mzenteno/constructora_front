@@ -17,6 +17,7 @@
     "menu-auth": "Autenticación",
     "menu-auth-user": "Usuarios",
     "menu-budget" : "Presupuestos",
+    "menu-budget-config" : "Configuración",
     "menu-budget-duplex" : "Registro de dúplex",
     "menu-budget-tracking" : "Seguimiento de dúplex",
     "menu-budget-report" : "Reporte de dúplex",
@@ -42,13 +43,16 @@
   "button": {
     "login": "Iniciar sesión",
     "new": "Adicionar",
+    "edit": "Editar",
+    "delete": "Emilinar",
     "save" : "Guardar",
     "cancel" : "Cancelar",
     "close" : "Cerrar",
     "download" : "Descargar",
     "totals" : "Totales",
     "accept" : "Aceptar",
-    "message-sucess" : "La operación se completó correctamente"
+    "message-sucess" : "La operación se completó correctamente",
+    "message-confirm" : "¿Está seguro de que quieres eliminar el registro?"
   },
   "navbar": {
     "user-option": "OPCIONES",
@@ -73,21 +77,33 @@
     "title": "Lista de dúplex",    
     "table-column-code" : "Código",
     "table-column-description" : "Descripción",
+    "table-column-client" : "Cliente",
     "table-column-address" : "Dirección"
+  },
+  "duplex-configuration": {
+    "title": "Configuración",
+    "table-column-order" : "Orden",
+    "table-option-new-item" : "Adicionar item",
+    "button-new-division" : "Adicionar división"
   },
   "duplex-form": {
     "title": "Formulario de dúplex",
     "code" : "Código",
     "description" : "Descripción",
     "address" : "Dirección",    
+    "client" : "Cliente",
+    "land" : "Terreno",
     "button-unity" : "Adicionar Unidad",
     "table-column-code" : "Código",
-    "table-column-description" : "Descripción"
+    "table-column-description" : "Descripción",
+    "table-column-cliente" : "Cliente",
+    "table-column-land" : "Land"
   },
   "duplex-tracking": {
     "title": "Seguimiento dúplex",
     "table-column-code" : "Código",
     "table-column-description" : "Descripción",
+    "table-column-client" : "Cliente",
     "table-column-address" : "Dirección"
   },
   "duplex-tracking-form": {
@@ -100,7 +116,6 @@
     "table-column-real" : "Real",
     "menu-spent-detail" : "Registro de gastos",
     "modal-sub-total-spent" : "Sub total",
-    "modal-contractor" : "Honorarios contratista",
     "modal-total-to-date" : "Total to date",
     "modal-deposit1" : "1er depósito",
     "modal-deposit2" : "2do depósito",
@@ -149,7 +164,12 @@
     "table-search-phone" : "Buscar por teléfono...",
     "table-search-email" : "Buscar por correo electrónico...",
     "table-search-document-number" : "Buscar por número de documento...",
-    "table-search-address" : "Buscar por Dirección..."
+    "table-search-address" : "Buscar por Dirección...",
+    "report-title" : "Reporte de proveedores",
+    "report-column-full-name" : "Nombre completo",
+    "report-column-phone" : "Teléfono",
+    "report-column-email" : "Correo electrónico",
+    "report-column-document-number" : "Número de documento"
   },
   "supplier-form": {
     "title": "Formulario de proveedores",
@@ -166,6 +186,7 @@
     "table-column-price" : "Cantidad",
     "table-column-sold" : "Estado",
     "table-column-supplier" : "Proveedor",
+    "table-column-zip-code" : "Código postal",
     "table-search-code" : "Buccar por código...",
     "table-search-ubication" : "Buscar por ubicación...",
     "table-search-price" : "Buscar por precio...",
@@ -177,7 +198,8 @@
     "report-column-supplier" : "Proveedor",
     "report-column-ubication" : "Ubicación",
     "report-column-description" : "Descripción",
-    "report-column-price" : "Cantidad"
+    "report-column-price" : "Cantidad",
+    "report-column-zip-code" : "Código postal"
   },
   "land-form": {
     "title": "Formulario de terreno",
@@ -186,6 +208,7 @@
     "price" : "Cantidad",
     "description" : "Descripción",
     "sold" : "Estado",
-    "supplier" : "Proveedor"
+    "supplier" : "Proveedor",
+    "zip-code" : "Código postal"
   }
 }

@@ -65,7 +65,7 @@ export const UnityModal = ({ show, onClose, onSave, form, setForm }) => {
                   <button type="button" className="btn btn-primary btn-fw mr-1" onClick={handleSave}>
                     {t("button.save")}
                   </button>
-                  <button type="button" className="btn btn-primary btn-fw" onClick={onClose}>
+                  <button type="button" className="btn btn-secondary btn-fw" onClick={onClose}>
                     {t("button.cancel")}
                   </button>
                 </div>

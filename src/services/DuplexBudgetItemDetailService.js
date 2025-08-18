@@ -1,8 +1,8 @@
 import AxiosInstance from "@services/AxiosInstance";
 
-const baseURL = `${import.meta.env.VITE_API_URL}duplex-unity-budget-item-detail`;
+const baseURL = `${import.meta.env.VITE_API_URL}duplex-budget-item-detail`;
 
-export const DuplexUnityBudgetItemDetailService = {
+export const DuplexBudgetItemDetailService = {
   async getByDuplexIdBudgetItemId(duplexId, budgetItemId) {
     try {
       const response = await AxiosInstance.get(`${baseURL}/duplex/${duplexId}/budget-item/${budgetItemId}`);

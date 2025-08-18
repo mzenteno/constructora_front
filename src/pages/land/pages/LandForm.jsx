@@ -33,6 +33,7 @@ export const LandForm = () => {
           txtDescription: data.description,
           cboSold: data.sold ? "1" : "0",
           cboSupplier: data.supplier.id,
+          txtZipCode: data.zipCode,
         });
       });
     }
@@ -67,6 +68,11 @@ export const LandForm = () => {
                   <label>{t("land-form.ubication")}</label>
                   <input type="text" className={`form-control ${errors.txtUbication ? "is-invalid" : ""}`} {...register("txtUbication", { required: t("util.value-required") })} />
                   {errors.txtUbication && <div className="invalid-feedback d-block">{errors.txtUbication.message}</div>}
+                </div>
+                <div className="form-group">
+                  <label>{t("land-form.zip-code")}</label>
+                  <input type="text" className={`form-control ${errors.txtZipCode ? "is-invalid" : ""}`} {...register("txtZipCode", { required: t("util.value-required") })} />
+                  {errors.txtZipCode && <div className="invalid-feedback d-block">{errors.txtZipCode.message}</div>}
                 </div>
                 <div className="form-group">
                   <label>{t("land-form.description")}</label>
@@ -110,7 +116,7 @@ export const LandForm = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary btn-fw mb-2"
+                  className="btn btn-secondary btn-fw mb-2"
                   onClick={() => {
                     navigate("/land");
                   }}>

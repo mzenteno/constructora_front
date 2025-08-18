@@ -4,9 +4,11 @@ import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
 import { useForm } from "react-hook-form";
 import { UseDuplex } from "@hooks/UseDuplex";
+import { UseLand } from "@hooks/UseLand";
 import { UnityModal } from "@pages/budget/components/UnityModal";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { ErrorModal } from "@utils/ErrorModal";
+import { GroupComponent } from "@utils/GroupComponent";
 import { Loading } from "@utils/Loading";
 
 export const DuplexForm = () => {
@@ -25,7 +27,8 @@ export const DuplexForm = () => {
 
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { loading, error, create, update, getById, getNewCode } = UseDuplex();
+  const { loading: loadingDuplex, error: errorDuplex, create, update, getById, getNewCode } = UseDuplex();
+  const { loading: loadingLand, error: errorLand, data: dataLand, getAll: getAllLand } = UseLand();
   const {
     register,
     handleSubmit,
@@ -34,6 +37,8 @@ export const DuplexForm = () => {
   } = useForm();
 
   useEffect(() => {
+    getAllLand();
+
     if (isEdit) {
       setIsButtonDisabled(true);
 
@@ -42,6 +47,8 @@ export const DuplexForm = () => {
           txtCode: data.code,
           txtDescription: data.description,
           txtAddress: data.address,
+          txtClient: data.client,
+          cboLand: data.landId,
         });
         setRows(data.duplexUnities);
       });
@@ -100,8 +107,8 @@ export const DuplexForm = () => {
     setModalOpen(true); // abre el modal
   };
 
-  if (loading) return <Loading />;
-  if (error) return <p>Error: {error}</p>;
+  if (loadingDuplex || loadingLand) return <Loading />;
+  if (errorDuplex || errorLand) return <p>Error: {errorDuplex}</p>;
 
   return (
     <>
@@ -111,19 +118,28 @@ export const DuplexForm = () => {
           <div className="card">
             <div className="card-body">
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-group">
-                  <label>{t("duplex-form.code")}</label>
+                <GroupComponent label={t("duplex-form.code")}>
                   <input type="text" className="form-control" {...register("txtCode")} readOnly />
-                </div>
-                <div className="form-group">
-                  <label>{t("duplex-form.description")}</label>
-                  <input type="text" className={`form-control ${errors.txtDescription ? "is-invalid" : ""}`} {...register("txtDescription", { required: t("util.value-required") })} />
-                  {errors.txtDescription && <div className="invalid-feedback d-block">{errors.txtDescription.message}</div>}
-                </div>
-                <div className="form-group">
-                  <label>{t("duplex-form.address")}</label>
-                  <input type="text" className="form-control" {...register("txtAddress")} />
-                </div>
+                </GroupComponent>
+                <GroupComponent label={t("duplex-form.client")}>
+                  <input type="text" className="form-control" {...register("txtClient")} />
+                </GroupComponent>
+                <GroupComponent label={t("duplex-form.land")}>
+                  <select className={`form-control ${errors.cboLand ? "is-invalid" : ""}`} {...register("cboLand", { required: t("util.value-required") })}>
+                    {dataLand.map((type) => (
+                      <option key={type.id} value={type.id}>
+                        {type.code}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.cboLand && <div className="invalid-feedback d-block">{errors.cboLand.message}</div>}
+                </GroupComponent>
+                <GroupComponent label={t("duplex-form.description")}>
+                  <input type="text" className="form-control" {...register("txtDescription")} />
+                </GroupComponent>
+                <GroupComponent label={t("duplex-form.address")}>
+                  <input type="text" className="form-control" {...register("txtDescription")} />
+                </GroupComponent>
 
                 <div className="form-group">
                   <button type="button" className="btn btn-danger btn-fw mr-1" disabled={isButtonDisabled} onClick={() => handleNewUnityClick()}>
@@ -157,7 +173,7 @@ export const DuplexForm = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary btn-fw mb-2"
+                  className="btn btn-secondary btn-fw mb-2"
                   onClick={() => {
                     navigate("/duplex");
                   }}>

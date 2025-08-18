@@ -1,5 +1,5 @@
-import { useState} from 'react';
-import { DuplexService } from '@services/DuplexService';
+import { useState } from "react";
+import { DuplexService } from "@services/DuplexService";
 
 export const UseDuplex = () => {
   const [loading, setLoading] = useState(false);
@@ -15,14 +15,14 @@ export const UseDuplex = () => {
         code: data.txtCode,
         description: data.txtDescription,
         address: data.txtAddress,
-        duplexUnities: data.duplexUnities
+        client: data.txtClient,
+        landId: parseInt(data.cboLand, 10),
+        duplexUnities: data.duplexUnities,
       });
       return response;
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -37,14 +37,14 @@ export const UseDuplex = () => {
         code: data.txtCode,
         description: data.txtDescription,
         address: data.txtAddress,
-        duplexUnities: data.duplexUnities
+        client: data.txtClient,
+        landId: parseInt(data.cboLand, 10),
+        duplexUnities: data.duplexUnities,
       });
       return response;
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -57,11 +57,9 @@ export const UseDuplex = () => {
     try {
       const data = await DuplexService.getAll();
       setData(data);
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -79,7 +77,6 @@ export const UseDuplex = () => {
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -97,28 +94,24 @@ export const UseDuplex = () => {
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
   };
 
-  const updateContractorsDeposit = async (id, data) => {
+  const updateDeposits = async (id, data) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await DuplexService.updateContractorsDeposit(id, {
-        contractorsFee: data.contractorsFee,
+      const response = await DuplexService.updateDeposits(id, {
         deposit1: data.deposit1,
-        deposit2: data.deposit2
+        deposit2: data.deposit2,
       });
       return response;
-
     } catch (err) {
       setError(err.message);
       throw err;
-
     } finally {
       setLoading(false);
     }
@@ -127,13 +120,12 @@ export const UseDuplex = () => {
   return {
     data,
     loading,
-    error,    
+    error,
     create,
     update,
     getAll,
     getById,
     getNewCode,
-    updateContractorsDeposit
+    updateDeposits,
   };
-
-}
+};

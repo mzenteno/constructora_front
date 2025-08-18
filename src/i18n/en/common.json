@@ -17,6 +17,7 @@
     "menu-auth": "Authentication",
     "menu-auth-user": "Users",
     "menu-budget" : "Budget",
+    "menu-budget-config" : "Configuration",
     "menu-budget-duplex" : "Duplex registration",
     "menu-budget-tracking" : "Duplex tracking",
     "menu-budget-report" : "Duplex report",
@@ -42,13 +43,16 @@
   "button": {
     "login": "Sign in",
     "new": "Add new",
+    "edit": "Edit",
+    "delete": "Delete",
     "save" : "Save",
     "cancel" : "Cancel",
     "close" : "Close",
     "download" : "Download",
     "totals" : "Totals",
     "accept" : "Accept",
-    "message-sucess" : "The operation was completed successfully"
+    "message-sucess" : "The operation was completed successfully",
+    "message-confirm" : "Are you sure you want to delete the record?"
   },
   "navbar": {
     "user-option": "OPTIONS",
@@ -73,21 +77,33 @@
     "title": "Duplex list",
     "table-column-code" : "Code",
     "table-column-description" : "Description",
+    "table-column-client" : "Client",
     "table-column-address" : "Address"
+  },
+  "duplex-configuration": {
+    "title": "Configuration",
+    "table-column-order" : "Order",
+    "table-option-new-item" : "Add new item",
+    "button-new-division" : "Add new división"
   },
   "duplex-form": {
     "title": "Duplex form",
     "code" : "Code",
     "description" : "Description",
     "address" : "Address",
+    "client" : "Client",
+    "land" : "Land",
     "button-unity" : "Add New Unity",
     "table-column-code" : "Code",
-    "table-column-description" : "Description"
+    "table-column-description" : "Description",
+    "table-column-cliente" : "Client",
+    "table-column-land" : "Land"
   },
   "duplex-tracking": {
     "title": "Duplex tracking",
     "table-column-code" : "Code",
     "table-column-description" : "Description",
+    "table-column-client" : "Client",
     "table-column-address" : "Address"
   },
   "duplex-tracking-form": {
@@ -100,7 +116,6 @@
     "table-column-real" : "Real",
     "menu-spent-detail" : "Register spent",
     "modal-sub-total-spent" : "Sub total",
-    "modal-contractor" : "Ccontractor's fee",
     "modal-total-to-date" : "Total to date",
     "modal-deposit1" : "1er deposit",
     "modal-deposit2" : "2do deposit",
@@ -149,7 +164,12 @@
     "table-search-phone" : "Search by phone...",
     "table-search-email" : "Search by email...",
     "table-search-document-number" : "Search by document number...",
-    "table-search-address" : "Search by address..."
+    "table-search-address" : "Search by address...",
+    "report-title" : "Supplier report",
+    "report-column-full-name" : "Full name",
+    "report-column-phone" : "Phone",
+    "report-column-email" : "Email",
+    "report-column-document-number" : "Document number"
   },
   "supplier-form": {
     "title": "Supplier form",
@@ -166,6 +186,7 @@
     "table-column-price" : "Amount",
     "table-column-sold" : "Status",
     "table-column-supplier" : "Supplier",
+    "table-column-zip-code" : "zip code",
     "table-search-code" : "Search by code...",
     "table-search-ubication" : "Search by ubication...",
     "table-search-price" : "Search by price...",
@@ -177,7 +198,8 @@
     "report-column-supplier" : "Supplier",
     "report-column-ubication" : "Ubication",
     "report-column-description" : "Description",
-    "report-column-price" : "Amount"
+    "report-column-price" : "Amount",
+    "report-column-zip-code" : "zip code"
   },
   "land-form": {
     "title": "Land form",
@@ -186,6 +208,7 @@
     "price" : "Price",
     "description" : "Description",
     "sold" : "Status",
-    "supplier" : "Supplier"
+    "supplier" : "Supplier",
+    "zip-code" : "zip code"
   }
 }

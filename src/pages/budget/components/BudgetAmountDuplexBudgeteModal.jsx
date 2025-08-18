@@ -44,7 +44,7 @@ export const BudgetAmountDuplexBudgeteModal = ({ show, onClose, onSave, form, se
                   <button type="button" className="btn btn-primary btn-fw mr-1 mt-4" onClick={handleSave}>
                     {t("button.save")}
                   </button>
-                  <button type="button" className="btn btn-primary btn-fw mt-4" onClick={onClose}>
+                  <button type="button" className="btn btn-secondary btn-fw mt-4" onClick={onClose}>
                     {t("button.cancel")}
                   </button>
                 </div>

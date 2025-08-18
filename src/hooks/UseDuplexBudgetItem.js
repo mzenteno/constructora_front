@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { DuplexUnityBudgetItemService } from "@services/DuplexUnityBudgetItemService";
+import { DuplexBudgetItemService } from "@services/DuplexBudgetItemService";
 
-export const UseDuplexUnityBudgetItem = () => {
+export const UseDuplexBudgetItem = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const response = await DuplexUnityBudgetItemService.create({
+      const response = await DuplexBudgetItemService.create({
         description: data.txtDescription,
         amount: data.txtAmount,
         expenseTypeId: parseInt(data.cboExpenseType, 10),
@@ -31,7 +31,7 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const response = await DuplexUnityBudgetItemService.update(id, {
+      const response = await DuplexBudgetItemService.update(id, {
         description: data.txtDescription,
         amount: data.txtAmount,
         expenseTypeId: parseInt(data.cboExpenseType, 10),
@@ -51,7 +51,7 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const data = await DuplexUnityBudgetItemService.getAll(filter);
+      const data = await DuplexBudgetItemService.getAll(filter);
       setData(data);
     } catch (err) {
       setError(err.message);
@@ -66,7 +66,7 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const data = await DuplexUnityBudgetItemService.getById(id);
+      const data = await DuplexBudgetItemService.getById(id);
       setData(data);
 
       return data;
@@ -83,7 +83,7 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const response = await DuplexUnityBudgetItemService.updateByDuplex(duplexId, data);
+      const response = await DuplexBudgetItemService.updateByDuplex(duplexId, data);
       return response;
     } catch (err) {
       setError(err.message);
@@ -98,7 +98,7 @@ export const UseDuplexUnityBudgetItem = () => {
     setError(null);
 
     try {
-      const data = await DuplexUnityBudgetItemService.getByDuplexId(duplexId);
+      const data = await DuplexBudgetItemService.getByDuplexId(duplexId);
       setData(data);
 
       return data;

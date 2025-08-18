@@ -60,7 +60,7 @@ export const ExpenseTypeForm = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary btn-fw mb-2"
+                  className="btn btn-secondary btn-fw mb-2"
                   onClick={() => {
                     navigate("/expense-type");
                   }}>

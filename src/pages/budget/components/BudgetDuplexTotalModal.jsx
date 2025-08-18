@@ -5,7 +5,7 @@ import { Loading } from "@utils/Loading";
 
 export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
   const { t } = useI18n();
-  const { loading, error, updateContractorsDeposit, getById } = UseDuplex();
+  const { loading, error, updateDeposits, getById } = UseDuplex();
   const [formData, setFormData] = useState({
     subTotalSpent: 0,
     contractorsFee: 0,
@@ -19,17 +19,15 @@ export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
     if (show) {
       getById(form.id).then((data) => {
         const subTotal = parseFloat(data.subTotalSpent) || 0;
-        const fee = parseFloat(data.contractorsFee) || 0;
         const deposit1 = parseFloat(data.deposit1) || 0;
         const deposit2 = parseFloat(data.deposit2) || 0;
 
         setFormData({
           subTotalSpent: subTotal,
-          contractorsFee: fee,
-          totalToDate: subTotal + fee,
+          totalToDate: subTotal,
           deposit1: deposit1,
           deposit2: deposit2,
-          total: subTotal + fee - deposit1 - deposit2,
+          total: subTotal - deposit1 - deposit2,
         });
       });
     }
@@ -76,12 +74,11 @@ export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
     e.preventDefault();
 
     const payload = {
-      contractorsFee: formData.contractorsFee,
       deposit1: formData.deposit1,
       deposit2: formData.deposit2,
     };
 
-    const response = await updateContractorsDeposit(form.id, payload);
+    const response = await updateDeposits(form.id, payload);
     if (response?.sucess !== false) {
       if (response) {
         onSave();
@@ -105,14 +102,10 @@ export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
               <div className="card">
                 <div className="card-body">
                   <form onSubmit={onSubmit}>
-                    <div className="form-group mb-3 mt-3">
+                    {/* <div className="form-group mb-3 mt-3">
                       <label>{t("duplex-tracking-form.modal-sub-total-spent")} ($)</label>
                       <input type="number" className="form-control" value={formatDecimal(formData.subTotalSpent)} readOnly />
-                    </div>
-                    <div className="form-group mb-3 mt-3">
-                      <label>{t("duplex-tracking-form.modal-contractor")} ($)</label>
-                      <input type="text" className="form-control" id="contractorsFee" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={formData.contractorsFee} onChange={handleInputChange} />
-                    </div>
+                    </div> */}
                     <div className="form-group mb-3 mt-3">
                       <label>{t("duplex-tracking-form.modal-total-to-date")} ($)</label>
                       <input type="number" className="form-control" value={formatDecimal(formData.totalToDate)} readOnly />
@@ -132,7 +125,7 @@ export const BudgetDuplexTotalModal = ({ show, onSave, onClose, form }) => {
                     <button type="submit" className="btn btn-primary btn-fw mr-1 mt-4">
                       {t("button.save")}
                     </button>
-                    <button type="button" className="btn btn-primary btn-fw mt-4" onClick={onClose}>
+                    <button type="button" className="btn btn-secondary btn-fw mt-4" onClick={onClose}>
                       {t("button.cancel")}
                     </button>
                   </form>

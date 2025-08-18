@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useI18n } from "@store/I18nContext";
 import { Title } from "@utils/Title";
-import { UseDuplexUnityBudgetItem } from "@hooks/UseDuplexUnityBudgetItem";
+import { UseDuplexBudgetItem } from "@hooks/UseDuplexBudgetItem";
 import { UseDuplex } from "@hooks/UseDuplex";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { BudgetAmountDuplexBudgeteModal } from "@pages/budget/components/BudgetAmountDuplexBudgeteModal";
@@ -11,7 +11,8 @@ import { BudgetAmountDuplexSpentModal } from "@pages/budget/components/BudgetAmo
 import { BudgetDuplexTotalModal } from "@pages/budget/components/BudgetDuplexTotalModal";
 import { DuplexTrackingFormTotal } from "@pages/budget/components/DuplexTrackingFormTotal";
 import { BudgetAmountDuplexSpentDetailModal } from "@pages/budget/components/BudgetAmountDuplexSpentDetailModal";
-import { DuplexTrackingPdf } from "@pages/budget/components/DuplexTrackingPdf";
+import { GenerateDuplexTrackingReportPdf } from "@utils/reports/DuplexTrackingReportPdf";
+import { GenerateDuplexTrackingReportExcel } from "@utils/reports/DuplexTrackingReportExcel";
 import { Loading } from "@utils/Loading";
 
 export const DuplexTrackingForm = () => {
@@ -24,7 +25,7 @@ export const DuplexTrackingForm = () => {
   const [itemForm, setItemForm] = useState({ id: "", budgete: "", spent: "" });
 
   const { t } = useI18n();
-  const { loading, error, data: dataBudget, getByDuplexId, updateByDuplex } = UseDuplexUnityBudgetItem();
+  const { loading, error, data: dataBudget, getByDuplexId, updateByDuplex } = UseDuplexBudgetItem();
   const { loading: loadingDuplex, data: dataDuplex, getById } = UseDuplex();
 
   useEffect(() => {
@@ -91,6 +92,13 @@ export const DuplexTrackingForm = () => {
     setTotalModalOpen(false);
   };
 
+  const handleDownloadpdf = () => {
+    GenerateDuplexTrackingReportPdf(dataBudget, dataDuplex, t);
+  };
+  const handleDownloadExcel = () => {
+    GenerateDuplexTrackingReportExcel(dataBudget, dataDuplex, t);
+  };
+
   if (loading || loadingDuplex) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
@@ -109,8 +117,11 @@ export const DuplexTrackingForm = () => {
                   {t("button.download")}
                 </button>
                 <div className="dropdown-menu">
-                  <a className="dropdown-item">
-                    <DuplexTrackingPdf t={t} dataBudget={dataBudget} dataDuplex={dataDuplex} id={id} />
+                  <a className="dropdown-item" onClick={handleDownloadpdf}>
+                    pdf...
+                  </a>
+                  <a className="dropdown-item" onClick={handleDownloadExcel}>
+                    excel...
                   </a>
                 </div>
               </div>
@@ -197,7 +208,7 @@ export const DuplexTrackingForm = () => {
                       </td>
                     </tr>
                   )}
-                  <DuplexTrackingFormTotal subTotal={dataDuplex.subTotalSpent} contractorsFee={dataDuplex.contractorsFee} deposit1={dataDuplex.deposit1} deposit2={dataDuplex.deposit2} />
+                  <DuplexTrackingFormTotal subTotal={dataDuplex.subTotalSpent} deposit1={dataDuplex.deposit1} deposit2={dataDuplex.deposit2} />
                 </tbody>
               </table>
             </div>

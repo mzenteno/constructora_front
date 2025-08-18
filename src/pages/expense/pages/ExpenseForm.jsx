@@ -69,7 +69,7 @@ export const ExpenseForm = () => {
                         {type.description}
                       </option>
                     ))}
-                   </select>
+                  </select>
                   {errors.cboExpenseType && <div className="invalid-feedback d-block">{errors.cboExpenseType.message}</div>}
                 </div>
                 <div className="form-group">
@@ -96,7 +96,7 @@ export const ExpenseForm = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary btn-fw mb-2"
+                  className="btn btn-secondary btn-fw mb-2"
                   onClick={() => {
                     navigate("/expense");
                   }}>

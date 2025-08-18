@@ -1,8 +1,8 @@
 import AxiosInstance from "@services/AxiosInstance";
 
-const baseURL = `${import.meta.env.VITE_API_URL}duplex-unity-budget-item`;
+const baseURL = `${import.meta.env.VITE_API_URL}duplex-budget-item`;
 
-export const DuplexUnityBudgetItemService = {
+export const DuplexBudgetItemService = {
   async create(data) {
     try {
       const response = await AxiosInstance.post(baseURL, data);

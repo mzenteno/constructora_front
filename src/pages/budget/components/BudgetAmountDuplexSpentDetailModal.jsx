@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import pdfMake from "@utils/pdfmake";
+import pdfMake from "@utils/reports/pdfmake";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 import { useI18n } from "@store/I18nContext";
-import { UseDuplexUnityBudgetItemDetail } from "@hooks/UseDuplexUnityBudgetItemDetail";
+import { UseDuplexBudgetItemDetail } from "@hooks/UseDuplexBudgetItemDetail";
 import { Loading } from "@utils/Loading";
 
 export const BudgetAmountDuplexSpentDetailModal = ({ show, onClose, form }) => {
   const { t } = useI18n();
-  const { loading, error, data, getByDuplexIdBudgetItemId } = UseDuplexUnityBudgetItemDetail();
+  const { loading, error, data, getByDuplexIdBudgetItemId } = UseDuplexBudgetItemDetail();
   const currentDate = new Date().toLocaleDateString("es-BO", {
     year: "numeric",
     month: "2-digit",
@@ -27,7 +29,7 @@ export const BudgetAmountDuplexSpentDetailModal = ({ show, onClose, form }) => {
     const headerRow = [
       { text: t("util.date"), bold: true, fillColor: "#d3d3d3" },
       { text: t("duplex-tracking-form.table-column-description"), bold: true, fillColor: "#d3d3d3" },
-      { text: `${t("duplex-tracking-form.table-column-spent")}($)`, bold: true, fillColor: "#d3d3d3" },
+      { text: `${t("duplex-tracking-form.table-column-spent")} ($)`, bold: true, fillColor: "#d3d3d3" },
     ];
 
     const tableBody = [headerRow];
@@ -43,7 +45,7 @@ export const BudgetAmountDuplexSpentDetailModal = ({ show, onClose, form }) => {
     const docDefinition = {
       content: [
         {
-          columns: [{ text: t("duplex-tracking-form.report-title"), style: "header", bold: true, fontSize: 12 }],
+          columns: [{ text: t("duplex-tracking-form.report-title"), style: "header", bold: true, fontSize: 13 }],
           margin: [0, 0, 0, 10],
         },
         {
@@ -89,7 +91,64 @@ export const BudgetAmountDuplexSpentDetailModal = ({ show, onClose, form }) => {
       },
     };
 
-    pdfMake.createPdf(docDefinition).download("project-budget.pdf");
+    pdfMake.createPdf(docDefinition).download("report.pdf");
+  };
+
+  const handleDownloadExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet(t("duplex-tracking-form.report-title"));
+
+    const titleCell = worksheet.getCell("A1");
+    titleCell.value = t("duplex-tracking-form.report-title");
+    titleCell.font = { name: "Calibri", size: 13, bold: true };
+
+    // Fecha de generación
+    const dateGenerationCell = worksheet.getCell("A2:B2");
+    dateGenerationCell.value = `${t("util.report-date-generation")}: ${new Date().toLocaleDateString("es-BO")}`;
+
+    worksheet.addRow([]);
+
+    // Encabezados
+    const headerRow = worksheet.addRow([t("util.date"), t("duplex-tracking-form.table-column-description"), `${t("duplex-tracking-form.table-column-spent")} ($)`]);
+    headerRow.font = { name: "Calibri", bold: true };
+
+    // Datos
+    data.forEach((item) => {
+      const row = worksheet.addRow([item.createAt, item.description, Number(item.total).toFixed(2)]);
+      row.getCell(3).alignment = { horizontal: "right" };
+    });
+
+    // Total
+    const total = data.reduce((acc, curr) => acc + Number(curr.total), 0);
+    const totalRow = worksheet.addRow(["", "Total ($):", total.toFixed(2)]);
+    totalRow.getCell(2).font = { name: "Calibri", bold: true };
+    totalRow.getCell(2).alignment = { horizontal: "right" };
+    totalRow.getCell(3).font = { name: "Calibri", bold: true };
+    totalRow.getCell(3).alignment = { horizontal: "right" };
+
+    // === Agregar bordes a la tabla ===
+    const startRow = headerRow.number; // fila donde empieza la tabla
+    const endRow = totalRow.number; // fila donde termina
+
+    for (let i = startRow; i <= endRow; i++) {
+      const row = worksheet.getRow(i);
+      row.eachCell({ includeEmpty: true }, (cell) => {
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+    }
+
+    worksheet.getColumn(1).width = 15;
+    worksheet.getColumn(2).width = 65;
+    worksheet.getColumn(3).width = 10;
+
+    // Descargar archivo
+    const buffer = await workbook.xlsx.writeBuffer();
+    saveAs(new Blob([buffer]), "report.xlsx");
   };
 
   if (loading) return <Loading />;
@@ -108,7 +167,6 @@ export const BudgetAmountDuplexSpentDetailModal = ({ show, onClose, form }) => {
           <div className="modal-content" style={{ height: "100%" }}>
             <div className="card" style={{ height: "100%" }}>
               <div className="card-body d-flex flex-column" style={{ height: "100%" }}>
-                {/* Contenedor que crecerá y tendrá scroll */}
                 <div style={{ flex: 1, overflowY: "auto" }}>
                   <table className="table table-bordered table-striped mb-3 mt-3">
                     <thead className="table-light">
@@ -146,11 +204,21 @@ export const BudgetAmountDuplexSpentDetailModal = ({ show, onClose, form }) => {
 
                 {/* Botones abajo, fuera del scroll */}
                 <div className="mt-3 text-end">
-                  <button type="button" className="btn btn-primary btn-fw mt-4 mr-1" onClick={onClose}>
-                    {t("button.close")}
-                  </button>
-                  <button type="button" className="btn btn-secondary btn-fw mt-4" onClick={handleDownloadPDF}>
-                    {t("button.download")}
+                  <div className="btn-group mt-4">
+                    <button type="button" className="btn btn-secondary dropdown-toggle btn-fw mr-1" data-toggle="dropdown">
+                      {t("button.download")}
+                    </button>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" onClick={handleDownloadPDF}>
+                        pdf...
+                      </a>
+                      <a className="dropdown-item" onClick={handleDownloadExcel}>
+                        excel...
+                      </a>
+                    </div>
+                  </div>
+                  <button type="button" className="btn btn-primary btn-fw mt-4" onClick={onClose}>
+                    {t("button.cancel")}
                   </button>
                 </div>
               </div>

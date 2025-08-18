@@ -5,9 +5,8 @@ import { Title } from "@utils/Title";
 import { UseSupplier } from "@hooks/UseSupplier";
 import { EditIcon } from "@assets/icons/EditIcon";
 import { DeleteIcon } from "@assets/icons/DeleteIcon";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 import { Loading } from "@utils/Loading";
+import { GenerateSupplierReportPdf } from "@utils/reports/SupplierReportPdf";
 
 export const Supplier = () => {
   const isFirstLoad = useRef(true);
@@ -85,31 +84,7 @@ export const Supplier = () => {
   };
 
   const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString();
-
-    // Opción: Logo en la parte superior izquierda
-    // if (logoBase64) {
-    //   doc.addImage(logoBase64, "PNG", 14, 10, 20, 20);
-    // }
-
-    doc.setFontSize(16);
-    doc.text("Reporte de proveedores", 15, 20);
-    doc.setFontSize(10);
-    doc.text(`Fecha de generación: ${formattedDate}`, 15, 26);
-
-    const tableData = data.map((item) => [item.fullName, item.phone, item.email, item.documentNumber]);
-
-    autoTable(doc, {
-      startY: 35,
-      head: [["Nombre completo", "Teléfono", "Correo electrónico", "Número de documento"]],
-      body: tableData,
-      styles: { fontSize: 9 },
-    });
-
-    doc.save("report.pdf");
+    GenerateSupplierReportPdf(data, t);
   };
 
   if (loading) return <Loading />;
