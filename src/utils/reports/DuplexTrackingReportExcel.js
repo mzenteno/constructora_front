@@ -21,7 +21,14 @@ function addSummaryRow(worksheet, rowNumber, title, values, backgroundColor = nu
   values.forEach((val, idx) => {
     const cell = row.getCell(idx + 4);
     cell.value = val;
-    cell.alignment = { horizontal: "right" };
+
+    // Solo aplicar formato numérico si el valor es un número
+    if (typeof val === "number" && !isNaN(val)) {
+      cell.numFmt = "#,##0.00";
+      cell.alignment = { horizontal: "right" };
+    } else {
+      cell.alignment = { horizontal: "right" };
+    }
 
     if (backgroundColor) {
       cell.fill = {
@@ -141,7 +148,14 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
       totalBudgete += Number(item.amountBudgete) || 0;
       totalReal += Number(item.amountReal) || 0;
 
-      const itemRow = worksheet.addRow(["", item.description, item.unit, item.amountBudgete, item.amountSpent, item.amountReal]);
+      const itemRow = worksheet.addRow(["", item.description, item.unit, Number(item.amountBudgete) || 0, Number(item.amountSpent) || 0, Number(item.amountReal) || 0]);
+      // Setear tipo numérico y formato
+      [4, 5, 6].forEach((colIndex) => {
+        const cell = itemRow.getCell(colIndex);
+        cell.numFmt = "#,##0.00"; // formato numérico con dos decimales
+        cell.alignment = { horizontal: "right" };
+      });
+
       itemRow.getCell(2).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "ffff00" } };
       itemRow.getCell(4).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "92d050" } };
       itemRow.getCell(4).alignment = { horizontal: "right" };
@@ -172,10 +186,10 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
   blankCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "bfbfbf" } };
 
   const newRowNumberSubTotal = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberSubTotal, "SUBTOTAL ($)", [totalBudgete.toFixed(2), Number(dataDuplex.subTotalSpent).toFixed(2), totalReal.toFixed(2)], "ffff00");
+  addSummaryRow(worksheet, newRowNumberSubTotal, "SUBTOTAL ($)", [Number(totalBudgete), Number(dataDuplex.subTotalSpent), Number(totalReal)], "ffff00");
 
   const newRowNumberTotalToDate = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberTotalToDate, "TOTAL TO DATE ($)", ["", totalToDate, ""], "00b050");
+  addSummaryRow(worksheet, newRowNumberTotalToDate, "TOTAL TO DATE ($)", ["", Number(totalToDate), ""], "00b050");
 
   const newRowNumberDeposit1 = worksheet.addRow([]).number;
   addSummaryRow(worksheet, newRowNumberDeposit1, "1st DEPOSIT ($)", ["", Number(dataDuplex.deposit1), ""]);
@@ -184,10 +198,10 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
   addSummaryRow(worksheet, newRowNumberDeposit2, "2nd DEPOSIT ($)", ["", Number(dataDuplex.deposit2), ""]);
 
   const newRowNumberTotalDeposit = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberTotalDeposit, "TOTAL DEPOSIT ($)", ["", totalDeposit, ""]);
+  addSummaryRow(worksheet, newRowNumberTotalDeposit, "TOTAL DEPOSIT ($)", ["", Number(totalDeposit), ""]);
 
   const newRowNumberBalance = worksheet.addRow([]);
-  addSummaryRow(worksheet, newRowNumberBalance.number, "BALANCE TO OPERATE ($)", ["", totalToDate - totalDeposit, ""]);
+  addSummaryRow(worksheet, newRowNumberBalance.number, "BALANCE TO OPERATE ($)", ["", Number(totalToDate) - Number(totalDeposit), ""]);
   newRowNumberBalance.getCell(5).font = { color: { argb: "FFFF0000" } };
 
   worksheet.getColumn(1).width = 13;

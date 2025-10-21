@@ -138,7 +138,7 @@ export const DuplexForm = () => {
                   <input type="text" className="form-control" {...register("txtDescription")} />
                 </GroupComponent>
                 <GroupComponent label={t("duplex-form.address")}>
-                  <input type="text" className="form-control" {...register("txtDescription")} />
+                  <input type="text" className="form-control" {...register("txtAddress")} />
                 </GroupComponent>
 
                 <div className="form-group">
