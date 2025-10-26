@@ -22,8 +22,11 @@ function addSummaryRow(worksheet, rowNumber, title, values, backgroundColor = nu
     const cell = row.getCell(idx + 4);
     cell.value = val;
 
-    // Solo aplicar formato numérico si el valor es un número
-    if (typeof val === "number" && !isNaN(val)) {
+    const isNumericValue = typeof val === "number" && !isNaN(val);
+    const isFormula = val && typeof val === "object" && val.formula;
+
+    // Aplicar formato si es número O si es un objeto con propiedad 'formula'
+    if (isNumericValue || isFormula) {
       cell.numFmt = "#,##0.00";
       cell.alignment = { horizontal: "right" };
     } else {
@@ -120,7 +123,6 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
   });
 
   let totalBudgete = 0;
-  let totalReal = 0;
   structuredData.forEach((section) => {
     const divisionRow = worksheet.addRow([section.division]);
     divisionRow.getCell(1).font = { name: "Calibri", bold: true };
@@ -146,9 +148,16 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
 
     section.items.forEach((item) => {
       totalBudgete += Number(item.amountBudgete) || 0;
-      totalReal += Number(item.amountReal) || 0;
 
-      const itemRow = worksheet.addRow(["", item.description, item.unit, Number(item.amountBudgete) || 0, Number(item.amountSpent) || 0, Number(item.amountReal) || 0]);
+      const itemRow = worksheet.addRow(["", item.description, item.unit, Number(item.amountBudgete) || 0, Number(item.amountSpent) || 0, ""]);
+      const rowNumber = itemRow.number;
+
+      // APLICAR FÓRMULA DE RESTA: D(N) - E(N)
+      const realCell = itemRow.getCell(6);
+      realCell.value = {
+        formula: `D${rowNumber}-E${rowNumber}`,
+      };
+
       // Setear tipo numérico y formato
       [4, 5, 6].forEach((colIndex) => {
         const cell = itemRow.getCell(colIndex);
@@ -186,22 +195,49 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
   blankCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "bfbfbf" } };
 
   const newRowNumberSubTotal = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberSubTotal, "SUBTOTAL ($)", [Number(totalBudgete), Number(dataDuplex.subTotalSpent), Number(totalReal)], "ffff00");
+
+  const lastDataRowNumber = newRowNumberSubTotal - 2;
+  const startRow = 9;
+
+  const budgetFormula = `SUM(D${startRow}:D${lastDataRowNumber})`;
+  const spentFormula = `SUM(E${startRow}:E${lastDataRowNumber})`;
+  const realFormula = `SUM(F${startRow}:F${lastDataRowNumber})`;
+
+  // Obtener las referencias de las filas de resumen
+  const subTotalRowNumber = newRowNumberSubTotal;
+
+  addSummaryRow(
+    worksheet,
+    newRowNumberSubTotal,
+    "SUBTOTAL ($)",
+    [
+      { formula: budgetFormula }, // Columna D
+      { formula: spentFormula }, // Columna E
+      { formula: realFormula }, // Columna F
+    ],
+    "ffff00"
+  );
 
   const newRowNumberTotalToDate = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberTotalToDate, "TOTAL TO DATE ($)", ["", Number(totalToDate), ""], "00b050");
+  const totalToDateRowNumber = newRowNumberTotalToDate;
+
+  addSummaryRow(worksheet, totalToDateRowNumber, "TOTAL TO DATE ($)", ["", { formula: `E${subTotalRowNumber}` }, ""], "00b050");
 
   const newRowNumberDeposit1 = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberDeposit1, "1st DEPOSIT ($)", ["", Number(dataDuplex.deposit1), ""]);
+  const deposit1RowNumber = newRowNumberDeposit1;
+  addSummaryRow(worksheet, deposit1RowNumber, "1st DEPOSIT ($)", ["", Number(dataDuplex.deposit1), ""]);
 
   const newRowNumberDeposit2 = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberDeposit2, "2nd DEPOSIT ($)", ["", Number(dataDuplex.deposit2), ""]);
-
-  const newRowNumberTotalDeposit = worksheet.addRow([]).number;
-  addSummaryRow(worksheet, newRowNumberTotalDeposit, "TOTAL DEPOSIT ($)", ["", Number(totalDeposit), ""]);
+  const deposit2RowNumber = newRowNumberDeposit2;
+  addSummaryRow(worksheet, deposit2RowNumber, "2nd DEPOSIT ($)", ["", Number(dataDuplex.deposit2), ""]);
 
   const newRowNumberBalance = worksheet.addRow([]);
-  addSummaryRow(worksheet, newRowNumberBalance.number, "BALANCE TO OPERATE ($)", ["", Number(totalToDate) - Number(totalDeposit), ""]);
+  const balanceRowNumber = newRowNumberBalance.number;
+
+  const balanceFormula = `E${totalToDateRowNumber}-E${deposit1RowNumber}-E${deposit2RowNumber}`;
+
+  addSummaryRow(worksheet, balanceRowNumber, "BALANCE TO OPERATE ($)", ["", { formula: balanceFormula }, ""]);
+
   newRowNumberBalance.getCell(5).font = { color: { argb: "FFFF0000" } };
 
   worksheet.getColumn(1).width = 13;

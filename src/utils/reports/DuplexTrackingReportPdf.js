@@ -101,7 +101,6 @@ export const GenerateDuplexTrackingReportPdf = async (dataBudget, dataDuplex, t)
   tableBody.push(pushTotalRow("TOTAL TO DATE ($)", totalToDate, "#00b050"));
   tableBody.push(pushTotalRow("1st DEPOSIT ($)", Number(dataDuplex.deposit1)));
   tableBody.push(pushTotalRow("2nd DEPOSIT ($)", Number(dataDuplex.deposit2)));
-  tableBody.push(pushTotalRow("TOTAL DEPOSIT ($)", totalDeposit));
   tableBody.push(pushTotalRow("BALANCE TO OPERATE ($)", totalToDate - totalDeposit, null, "#ff0000"));
 
   const docDefinition = {
