@@ -192,7 +192,7 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
     bottom: { style: "thin" },
     right: { style: "thin" },
   };
-  blankCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "bfbfbf" } };
+  blankCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "ffffff" } };
 
   const newRowNumberSubTotal = worksheet.addRow([]).number;
 
@@ -204,41 +204,41 @@ export const GenerateDuplexTrackingReportExcel = async (dataBudget, dataDuplex, 
   const realFormula = `SUM(F${startRow}:F${lastDataRowNumber})`;
 
   // Obtener las referencias de las filas de resumen
-  const subTotalRowNumber = newRowNumberSubTotal;
+  // const subTotalRowNumber = newRowNumberSubTotal;
 
   addSummaryRow(
     worksheet,
     newRowNumberSubTotal,
-    "SUBTOTAL ($)",
+    "TOTAL TO DATE ($)",
     [
       { formula: budgetFormula }, // Columna D
       { formula: spentFormula }, // Columna E
       { formula: realFormula }, // Columna F
     ],
-    "ffff00"
+    "bfbfbf"
   );
 
-  const newRowNumberTotalToDate = worksheet.addRow([]).number;
-  const totalToDateRowNumber = newRowNumberTotalToDate;
+  // const newRowNumberTotalToDate = worksheet.addRow([]).number;
+  // const totalToDateRowNumber = newRowNumberTotalToDate;
 
-  addSummaryRow(worksheet, totalToDateRowNumber, "TOTAL TO DATE ($)", ["", { formula: `E${subTotalRowNumber}` }, ""], "00b050");
+  // addSummaryRow(worksheet, totalToDateRowNumber, "TOTAL TO DATE ($)", ["", { formula: `E${subTotalRowNumber}` }, ""], "00b050");
 
-  const newRowNumberDeposit1 = worksheet.addRow([]).number;
-  const deposit1RowNumber = newRowNumberDeposit1;
-  addSummaryRow(worksheet, deposit1RowNumber, "1st DEPOSIT ($)", ["", Number(dataDuplex.deposit1), ""]);
+  // const newRowNumberDeposit1 = worksheet.addRow([]).number;
+  // const deposit1RowNumber = newRowNumberDeposit1;
+  // addSummaryRow(worksheet, deposit1RowNumber, "1st DEPOSIT ($)", ["", Number(dataDuplex.deposit1), ""]);
 
-  const newRowNumberDeposit2 = worksheet.addRow([]).number;
-  const deposit2RowNumber = newRowNumberDeposit2;
-  addSummaryRow(worksheet, deposit2RowNumber, "2nd DEPOSIT ($)", ["", Number(dataDuplex.deposit2), ""]);
+  // const newRowNumberDeposit2 = worksheet.addRow([]).number;
+  // const deposit2RowNumber = newRowNumberDeposit2;
+  // addSummaryRow(worksheet, deposit2RowNumber, "2nd DEPOSIT ($)", ["", Number(dataDuplex.deposit2), ""]);
 
-  const newRowNumberBalance = worksheet.addRow([]);
-  const balanceRowNumber = newRowNumberBalance.number;
+  // const newRowNumberBalance = worksheet.addRow([]);
+  // const balanceRowNumber = newRowNumberBalance.number;
 
-  const balanceFormula = `E${totalToDateRowNumber}-E${deposit1RowNumber}-E${deposit2RowNumber}`;
+  // const balanceFormula = `E${totalToDateRowNumber}-E${deposit1RowNumber}-E${deposit2RowNumber}`;
 
-  addSummaryRow(worksheet, balanceRowNumber, "BALANCE TO OPERATE ($)", ["", { formula: balanceFormula }, ""]);
+  // addSummaryRow(worksheet, balanceRowNumber, "BALANCE TO OPERATE ($)", ["", { formula: balanceFormula }, ""]);
 
-  newRowNumberBalance.getCell(5).font = { color: { argb: "FFFF0000" } };
+  // newRowNumberBalance.getCell(5).font = { color: { argb: "FFFF0000" } };
 
   worksheet.getColumn(1).width = 13;
   worksheet.getColumn(2).width = 65;

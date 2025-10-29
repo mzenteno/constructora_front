@@ -1,31 +1,28 @@
-export const DuplexTrackingFormTotal = ({ subTotal, deposit1, deposit2 }) => {
-  const totalToDate = Number(subTotal);
-  const total = Number(totalToDate) - Number(deposit1) - Number(deposit2);
-
+export const DuplexTrackingFormTotal = ({ budgete, spent, real }) => {
   return (
     <>
       <tr>
-        <td colSpan={7} style={{ backgroundColor: "#bfbfbf", color: "#bfbfbf" }}>
+        <td colSpan={7} style={{ color: "#fff" }}>
           -
         </td>
       </tr>
-      <tr>
+      {/* <tr>
         <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#ffff00" }}>
           SUBTOTAL ($)
         </td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}></td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}>{subTotal}</td>
         <td style={{ textAlign: "right", backgroundColor: "#ffff00" }}></td>
-      </tr>
+      </tr> */}
       <tr>
-        <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#00b050" }}>
+        <td colSpan={4} style={{ textAlign: "right", backgroundColor: "#cdccccff", fontWeight: "600" }}>
           TOTAL TO DATE ($)
         </td>
-        <td style={{ textAlign: "right", backgroundColor: "#00b050" }}></td>
-        <td style={{ textAlign: "right", backgroundColor: "#00b050" }}>{Number(totalToDate).toFixed(2)}</td>
-        <td style={{ textAlign: "right", backgroundColor: "#00b050" }}></td>
+        <td style={{ textAlign: "right", backgroundColor: "#cdccccff", fontWeight: "600" }}>{Number(budgete).toFixed(2)}</td>
+        <td style={{ textAlign: "right", backgroundColor: "#cdccccff", fontWeight: "600" }}>{Number(spent).toFixed(2)}</td>
+        <td style={{ textAlign: "right", backgroundColor: "#cdccccff", fontWeight: "600" }}>{Number(real).toFixed(2)}</td>
       </tr>
-      <tr>
+      {/* <tr>
         <td colSpan={4} style={{ textAlign: "right" }}>
           1st DEPOSIT ($)
         </td>
@@ -48,7 +45,7 @@ export const DuplexTrackingFormTotal = ({ subTotal, deposit1, deposit2 }) => {
         <td></td>
         <td style={{ textAlign: "right", color: "red" }}>{Number(total).toFixed(2)}</td>
         <td></td>
-      </tr>
+      </tr> */}
     </>
   );
 };

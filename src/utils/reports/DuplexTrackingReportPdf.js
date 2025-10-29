@@ -88,20 +88,20 @@ export const GenerateDuplexTrackingReportPdf = async (dataBudget, dataDuplex, t)
     return row;
   };
 
-  tableBody.push([{ text: "A", colSpan: 6, fillColor: "#bfbfbf", color: "#bfbfbf" }]);
+  tableBody.push([{ text: "A", colSpan: 6, fillColor: "#fff", color: "#fff" }]);
 
   tableBody.push([
-    { text: "SUBTOTAL ($)", bold: true, colSpan: 3, alignment: "right", fillColor: "#ffff00" },
-    { text: "", fillColor: "#ffff00" },
-    { text: "", fillColor: "#ffff00" },
-    { text: totalBudgete.toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
-    { text: Number(dataDuplex.subTotalSpent).toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
-    { text: totalReal.toFixed(2), bold: true, alignment: "right", fillColor: "#ffff00" },
+    { text: "TOTAL TO DATE ($)", bold: true, colSpan: 3, alignment: "right", fillColor: "#bfbfbf" },
+    { text: "", fillColor: "#bfbfbf" },
+    { text: "", fillColor: "#bfbfbf" },
+    { text: totalBudgete.toFixed(2), bold: true, alignment: "right", fillColor: "#bfbfbf" },
+    { text: Number(dataDuplex.subTotalSpent).toFixed(2), bold: true, alignment: "right", fillColor: "#bfbfbf" },
+    { text: totalReal.toFixed(2), bold: true, alignment: "right", fillColor: "#bfbfbf" },
   ]);
-  tableBody.push(pushTotalRow("TOTAL TO DATE ($)", totalToDate, "#00b050"));
-  tableBody.push(pushTotalRow("1st DEPOSIT ($)", Number(dataDuplex.deposit1)));
-  tableBody.push(pushTotalRow("2nd DEPOSIT ($)", Number(dataDuplex.deposit2)));
-  tableBody.push(pushTotalRow("BALANCE TO OPERATE ($)", totalToDate - totalDeposit, null, "#ff0000"));
+  // tableBody.push(pushTotalRow("TOTAL TO DATE ($)", totalToDate, "#00b050"));
+  // tableBody.push(pushTotalRow("1st DEPOSIT ($)", Number(dataDuplex.deposit1)));
+  // tableBody.push(pushTotalRow("2nd DEPOSIT ($)", Number(dataDuplex.deposit2)));
+  // tableBody.push(pushTotalRow("BALANCE TO OPERATE ($)", totalToDate - totalDeposit, null, "#ff0000"));
 
   const docDefinition = {
     content: [

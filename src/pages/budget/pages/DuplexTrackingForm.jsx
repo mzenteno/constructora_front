@@ -102,6 +102,17 @@ export const DuplexTrackingForm = () => {
   if (loading || loadingDuplex) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
+  // CÁLCULO DE TOTALES
+  const totals = dataBudget.reduce(
+    (acc, item) => {
+      acc.budgete += parseFloat(item.amountBudgete) || 0;
+      acc.spent += parseFloat(item.amountSpent) || 0;
+      acc.real += parseFloat(item.amountReal) || 0;
+      return acc;
+    },
+    { budgete: 0, spent: 0, real: 0 } // Valor inicial
+  );
+
   return (
     <>
       <Title title={t("duplex-tracking-form.title")} />
@@ -110,9 +121,9 @@ export const DuplexTrackingForm = () => {
           <div className="card">
             <div className="card-body">
               <div className="btn-group">
-                <button type="button" className="btn btn-primary btn-fw mr-1" onClick={(e) => handleUpdateClick(e, null, "Total")}>
+                {/* <button type="button" className="btn btn-primary btn-fw mr-1" onClick={(e) => handleUpdateClick(e, null, "Total")}>
                   {t("button.totals")}
-                </button>
+                </button> */}
                 <button type="button" className="btn btn-secondary dropdown-toggle btn-fw" data-toggle="dropdown">
                   {t("button.download")}
                 </button>
@@ -208,7 +219,7 @@ export const DuplexTrackingForm = () => {
                       </td>
                     </tr>
                   )}
-                  <DuplexTrackingFormTotal subTotal={dataDuplex.subTotalSpent} deposit1={dataDuplex.deposit1} deposit2={dataDuplex.deposit2} />
+                  <DuplexTrackingFormTotal budgete={totals.budgete} spent={totals.spent} real={totals.real} />
                 </tbody>
               </table>
             </div>
